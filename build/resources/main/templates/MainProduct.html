@@ -547,22 +547,14 @@
         <!--        </tr>-->
         <tr class="product_table" th:each="data_product : ${productlist}" data-bs-toggle="modal"
             data-bs-target="myModal2">
-            <td class="product_table" th:text="${data_product.product_code}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.product_name}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.sale_price}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.price}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.category_code}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.product_img}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.product_explain}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
-            <td class="product_table" th:text="${data_product.company_code}" data-bs-toggle="modal"
-                data-bs-target="myModal2"></td>
+            <td class="product_table" th:text="${data_product.product_code}"></td>
+            <td class="product_table" th:text="${data_product.product_name}"></td>
+            <td class="product_table" th:text="${data_product.sale_price}"></td>
+            <td class="product_table" th:text="${data_product.price}"></td>
+            <td class="product_table" th:text="${data_product.category_code}"></td>
+            <td class="product_table" th:text="${data_product.product_img}"></td>
+            <td class="product_table" th:text="${data_product.product_explain}"></td>
+            <td class="product_table" th:text="${data_product.company_code}"></td>
         </tr>
 
     </table>

@@ -16,10 +16,10 @@ public class LoginController {
     @Autowired
     IF_LoginService loginservice;
 
-    @GetMapping("/")
-    public String home() throws Exception{
-        return "login";
-    }
+//    @GetMapping("/")
+//    public String home() throws Exception{
+//        return "login";
+//    }
 
     @PostMapping("join")
     public String join(@RequestParam("id") String id, @RequestParam("pass") String pass) throws Exception {

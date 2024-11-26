@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class RevenueVO {
-    int revenueCode = 0;
     String revenueName = null;
     String revenueType = null;
 }
