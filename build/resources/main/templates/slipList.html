@@ -45,8 +45,8 @@
         <td th:text="${slip.pvDate}"></td>
         <td th:text="${slip.pvslipName}"></td>
         <td th:text="${slip.pvCmpy}"></td>
-        <td th:text="${#numbers.formatDecimal(slip.pvPrice, 0, 'COMMA')}"></td>
-        <td th:text="${#numbers.formatDecimal(slip.pvFee, 0, 'COMMA')}"></td>
+        <td th:text="${slip.pvPrice}"></td>
+        <td th:text="${slip.pvFee}"></td>
         <td th:text="${slip.pvPay}"></td>
         <td th:text="${slip.pvComment}"></td>
     </tr>
