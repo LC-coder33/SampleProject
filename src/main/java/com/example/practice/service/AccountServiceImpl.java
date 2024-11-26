@@ -5,7 +5,6 @@ import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -30,8 +29,7 @@ public class AccountServiceImpl implements IF_AccountService{
 //	}
 
 	@Override
-	public List<RevenueVO> selectAll() throws Exception {
-		ModelAndView mv = new ModelAndView("account");
+	public List<SlipVO> selectAll() throws Exception {
 		return adao.selectAll();
 	}
 

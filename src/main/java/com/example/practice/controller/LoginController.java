@@ -29,10 +29,16 @@ public class LoginController {
         return "home";
     }
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public String signup(@ModelAttribute MemberVO membervo) throws Exception{
         loginservice.signup(membervo);
         System.out.println("테스트");
+        return "login";
+    }
+
+    // GET 요청 (페이지 표시용)
+    @GetMapping("/signup")
+    public String showSignup() {
         return "login";
     }
 }

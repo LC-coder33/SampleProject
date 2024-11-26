@@ -105,7 +105,7 @@
       <form>
         <a href="#" id="modalSlip">전표 등록</a>
       </form>
-      <a href="#">결제 승인 대기</a>
+      <a href="#" onclick="aa()">결제 승인 대기</a>
       <a href="#">전표 관리</a>
       <a href="#">손익 계산서</a>
     </div>
@@ -121,7 +121,7 @@
       <span class="dropbt n_icon">거래처</span>
     </button>
     <div class="dropdown-content">
-      <a href="#" onclick = "aa()">입고 신청</a>
+      <a href="#">입고 신청</a>
       <a href="#">재고 조회</a>
     </div>
   </div>
@@ -140,11 +140,14 @@
 </nav>
 <Section id="contents">
   <div>
-  <embed src="/" id="bb" width=100% height=600px>
-    <script>
+    <iframe th:src="@{/home}" id="bb" width="100%" height="900px"></iframe>
+
+    <script th:inline="javascript">
+      const contextPath = /*[[@{/}]]*/ '';
+
       function aa() {
-        var ab = document.getElementById('bb');
-        ab.src = "";
+        const ab = document.getElementById('bb');
+        ab.src = contextPath + 'slistView';
       }
     </script>
 

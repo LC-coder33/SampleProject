@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERP Slip List</title>
+    <style>
+        /* 기본 스타일 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<h1>결재 승인 대기 전표 리스트</h1>
+
+<!-- 데이터 목록 표시용 테이블 -->
+<table id="slip-list">
+    <thead>
+    <tr>
+        <th>전표 코드</th>
+        <th>전표 타입</th>
+        <th>작성자</th>
+        <th>등록 날짜</th>
+        <th>계정과목</th>
+        <th>거래처명</th>
+        <th>금액</th>
+        <th>부가세</th>
+        <th>결제 수단</th>
+        <th>적요</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- 슬립 목록을 Thymeleaf로 출력 -->
+    <tr th:each="slip : ${slips}">
+        <td th:text="${slip.pvCode}"></td>
+        <td th:text="${slip.pvslipCode}"></td>
+        <td th:text="${slip.pvName}"></td>
+        <td th:text="${slip.pvDate}"></td>
+        <td th:text="${slip.pvslipName}"></td>
+        <td th:text="${slip.pvCmpy}"></td>
+        <td th:text="${#numbers.formatDecimal(slip.pvPrice, 0, 'COMMA')}"></td>
+        <td th:text="${#numbers.formatDecimal(slip.pvFee, 0, 'COMMA')}"></td>
+        <td th:text="${slip.pvPay}"></td>
+        <td th:text="${slip.pvComment}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -14,6 +14,6 @@ public interface IF_AccountDao {
 
 	public void insertOne(RevenueVO rvo)throws Exception;
 //	public RevenueVO selectOne(String revenueCode) throws Exception;
-	public List<RevenueVO> selectAll() throws Exception;
+	public List<SlipVO> selectAll() throws Exception;
 	public void psInsert(SlipVO slipvo)throws Exception;
 }
