@@ -1,6 +1,7 @@
 package com.example.practice.service;
 
 import com.example.practice.repository.IF_AccountDao;
+import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 import lombok.RequiredArgsConstructor;
@@ -22,16 +23,26 @@ public class AccountServiceImpl implements IF_AccountService{
 		// 실제 데이터를 저장하도록 지시한다...
 		adao.insertOne(rvo);
 	}
+
+	@Override
+	public List<SlipVO> selectAll(Pagevo pagevo) throws Exception {
+		List<SlipVO> list = adao.selectAll(pagevo);
+		for(SlipVO s : list) {
+			String date = s.getPvDate();
+			s.setPvDate(date.substring(0,10));
+		}
+		return list;
+	}
+
+	@Override
+	public int totalCountPV() throws Exception {
+		return adao.totalCountPV();
+	}
 //	@Override
 //	public RevenueVO selectOne(String revenueCode) throws Exception {
 //		// TODO Auto-generated method stub
 //		return adao.selectOne(revenueCode);
 //	}
-
-	@Override
-	public List<SlipVO> selectAll() throws Exception {
-		return adao.selectAll();
-	}
 
 	@Override
 	public void psInsert(SlipVO slipvo) throws Exception {
@@ -45,6 +56,7 @@ public class AccountServiceImpl implements IF_AccountService{
 		adao.psInsert(slipvo);
 		System.out.println("성공");
 	}
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.practice.service;
 
+import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 
@@ -11,7 +12,10 @@ public interface IF_AccountService {
 	public void join(RevenueVO rvo) throws Exception;
 //	public RevenueVO selectOne(String revenueCode) throws Exception;
 
-	List<SlipVO> selectAll() throws Exception;
+	List<SlipVO> selectAll(Pagevo pagevo) throws Exception;
+
+	public int totalCountPV() throws Exception;
 
 	public void psInsert(SlipVO slipvo) throws Exception;
+
 }

@@ -6,13 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!--  parameterType은 쿼리문의 ?부분의 정보 -->
 	<insert id="insertOne" parameterType="com.example.practice.vo.RevenueVO">
 		insert into erpRevenue values (#{revenueName},#{revenueType})
-	</insert>	
-
-	<select id="selectAll" resultType="com.example.practice.vo.SlipVO">
-		select * from erpSlippv
-	</select>
+	</insert>
 	<insert id="psInsert" parameterType="com.example.practice.vo.SlipVO">
 		insert into erpSlippv values (slip_seq.NEXTVAL,#{pvslipCode},#{pvName},#{pvDate},#{pvslipName},#{pvCmpy},#{pvPrice},#{pvFee},#{pvPay},#{pvComment})
 	</insert>
+	<select id="selectAll" resultType="com.example.practice.vo.SlipVO">
+		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV order by PVCODE ASC) sub)
+		t where rnum between #{startNo} and #{endNo}
+	</select>
+	<select id="totalCountPV" resultType="int">
+		select count(*) from ERPSLIPPV
+	</select>
+	<select id="selectOne" resultType="com.example.practice.vo.SlipVO">
+		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV where pvCmpy = #{pvCmpy} order by PVCODE ASC) sub)
+		t where rnum between #{startNO} and #{endNO}
+	</select>
+
 </mapper>
 
