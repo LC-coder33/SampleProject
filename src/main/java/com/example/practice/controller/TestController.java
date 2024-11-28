@@ -13,8 +13,6 @@ public class TestController {
     // 홈 화면
     @GetMapping("/home")
     public String index() throws Exception {
-        memberservice.selectOne("one");
-        System.out.println(memberservice.selectOne("one"));
         return "home";
     }
 

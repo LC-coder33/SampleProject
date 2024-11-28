@@ -39,5 +39,31 @@ public class AccountController {
         model.addAttribute("slips", slipList);  // 전표 목록을 "slips"라는 이름으로 모델에 추가
         return mv;
     }
+    @GetMapping("/search")
+    public ModelAndView search(@RequestParam String searchKeyword,
+                               @RequestParam String pvtext,
+//                               @ModelAttribute Pagevo pagevo,
+                               Model model) throws Exception {
 
+        Pagevo pagevo = new Pagevo();
+        pagevo.setPage(1);
+
+        List<SlipVO> slipList;
+        ModelAndView mv = new ModelAndView("sliplist");
+
+        if(searchKeyword.equals("name")) {
+            pagevo.setTotalCount(accountservice.countpvName(pvtext));
+            slipList = accountservice.selectpvName(pagevo, pvtext);
+        } else if(searchKeyword.equals("cmpy")) {
+            pagevo.setTotalCount(accountservice.countpvCmpy(pvtext));
+            slipList = accountservice.selectpvCmpy(pagevo, pvtext);
+        } else {
+            pagevo.setTotalCount(accountservice.totalCountPV());
+            slipList = accountservice.selectAll(pagevo);
+        }
+
+        model.addAttribute("slips", slipList);
+        model.addAttribute("pagevo", pagevo);
+        return mv;
+    }
 }

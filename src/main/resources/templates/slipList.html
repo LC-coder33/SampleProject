@@ -110,7 +110,7 @@
             background-color: #4CAF50;
             color: white;
         }
-        #companytext {
+        #pvtext {
             background-color: white; /* 배경색은 그대로 */
             border-radius: 5px; /* 둥근 모서리 */
             border: 1px solid #4CAF50; /* 초록색 테두리 */
@@ -120,7 +120,7 @@
             margin-right: 10px; /* 버튼과 간격 */
         }
 
-        #companysubmit {
+        #pvsubmit {
             background-color: #4CAF50; /* 초록색 배경 */
             border-radius: 5px; /* 둥근 모서리 */
             border: none; /* 테두리 제거 */
@@ -135,10 +135,29 @@
             background-color: #45a049; /* 마우스 오버 시 조금 어두운 초록색 */
         }
 
-        #searchCmpy {
+        #searchbox {
             display: flex; /* 입력창과 버튼을 가로로 배치 */
             justify-content: center; /* 가운데 정렬 */
             margin-bottom: 30px; /* 아래쪽 여백 추가 */
+        }
+        #searchkeyword {
+            display: flex;
+            border: #4CAF50 solid 1px;
+            border-radius: 5px;
+            margin-right: 5px;
+        }
+        #type-select {
+            padding: 10px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: #e8f5e9;
+            color: #388e3c;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #type-select:hover {
+            background-color: #c8e6c9;
         }
     </style>
 </head>
@@ -153,7 +172,17 @@
             <input type="checkbox" name="checkbox-all" id="checkbox-all">
         </th>
         <th>전표 코드</th>
-        <th>전표 타입</th>
+        <th>
+            <div id="dropdown-filter">
+                <select id="type-select" onchange="filterByType(this.value)">
+                    <option value="">전표타입</option>
+                    <option value="매출">매출</option>
+                    <option value="비용">비용</option>
+                    <option value="자산">자산</option>
+                    <option value="부채">부채</option>
+                </select>
+            </div>
+        </th>
         <th>작성자</th>
         <th>등록 날짜</th>
         <th>계정과목</th>
@@ -189,38 +218,86 @@
     </tr>
     </tbody>
 </table>
-    <div class="pagination-container">
-        <!-- 이전 페이지 그룹 -->
-        <a th:if="${pagevo.prev}"
-           th:href="@{/slistView(page=${pagevo.startPage - 1})}"
-           class="pagination-group">
-            <span>◀ 이전</span>
-        </a>
+<!--    <div class="pagination-container">-->
+<!--        &lt;!&ndash; 이전 페이지 그룹 &ndash;&gt;-->
+<!--        <a th:if="${pagevo.prev}"-->
+<!--           th:href="@{/slistView(page=${pagevo.startPage - 1})}"-->
+<!--           class="pagination-group">-->
+<!--            <span>◀ 이전</span>-->
+<!--        </a>-->
 
-        <!-- 페이지 번호 순회 -->
-        <div th:each="idx : ${#numbers.sequence(pagevo.startPage, pagevo.endPage)}">
-            <a th:href="@{/slistView(page=${idx})}"
-               th:text="${idx}"
-               th:class="${pagevo.page == idx} ? 'pagination-link active' : 'pagination-link'">
-            </a>
-        </div>
+<!--        &lt;!&ndash; 페이지 번호 순회 &ndash;&gt;-->
+<!--        <div th:each="idx : ${#numbers.sequence(pagevo.startPage, pagevo.endPage)}">-->
+<!--            <a th:href="@{/slistView(page=${idx})}"-->
+<!--               th:text="${idx}"-->
+<!--               th:class="${pagevo.page == idx} ? 'pagination-link active' : 'pagination-link'">-->
+<!--            </a>-->
+<!--        </div>-->
 
-        <!-- 다음 페이지 그룹 -->
-        <a th:if="${pagevo.next}"
-           th:href="@{/slistView(page=${pagevo.endPage + 1})}"
-           class="pagination-group">
-            <span>다음 ▶</span>
+<!--        &lt;!&ndash; 다음 페이지 그룹 &ndash;&gt;-->
+<!--        <a th:if="${pagevo.next}"-->
+<!--           th:href="@{/slistView(page=${pagevo.endPage + 1})}"-->
+<!--           class="pagination-group">-->
+<!--            <span>다음 ▶</span>-->
+<!--        </a>-->
+<!--    </div>-->
+<div class="pagination-container">
+    <!-- 이전 페이지 그룹 -->
+    <a th:if="${pagevo.prev}"
+       th:href="@{/search(page=${pagevo.startPage - 1}, searchKeyword=${param.searchKeyword}, pvtext=${param.pvtext})}"
+       class="pagination-group">
+        <span>◀ 이전</span>
+    </a>
+
+    <!-- 페이지 번호 순회 -->
+    <div th:each="idx : ${#numbers.sequence(pagevo.startPage, pagevo.endPage)}">
+        <a th:href="@{/search(page=${idx}, searchKeyword=${param.searchKeyword}, pvtext=${param.pvtext})}"
+           th:text="${idx}"
+           th:class="${pagevo.page == idx} ? 'pagination-link active' : 'pagination-link'">
         </a>
     </div>
-<form id="searchCmpy" name="searchCmpy">
-    <input type="text" id="companytext" placeholder="회사명을 입력해주세요">
-    <input type="submit" id="companysubmit" value="검색">
+
+    <!-- 다음 페이지 그룹 -->
+    <a th:if="${pagevo.next}"
+       th:href="@{/search(page=${pagevo.endPage + 1}, searchKeyword=${param.searchKeyword}, pvtext=${param.pvtext})}"
+       class="pagination-group">
+        <span>다음 ▶</span>
+    </a>
+</div>
+<form id="searchbox" name="searchbox" action="/search" method="get">
+    <select id="searchkeyword" name="searchKeyword" onchange="updatePlaceholder()">
+        <option value="">선택하세요</option>
+        <option value="name">작성자</option>
+        <option value="cmpy">거래처명</option>
+    </select>
+
+    <input type="text" id="pvtext" name="pvtext" placeholder="검색할 항목을 선택해주세요.">
+    <input type="submit" id="pvsubmit" value="검색">
 </form>
 <script>
-function selectpvOne() {
-    const pvCmpy = document.getElementById("companytext");
+function updatePlaceholder() {
+    const searchKeyword = document.getElementById('searchkeyword').value;
+    const pvText = document.getElementById('pvtext');
 
+    // searchKeyword.innerHTML = '<option value="">선택하세요</option>';
+
+    if (searchKeyword === 'name') {
+        pvText.placeholder = '작성자명을 입력해주세요';
+    } else if (searchKeyword === 'cmpy') {
+        pvText.placeholder = '거래처명을 입력해주세요';
+    }
 }
+
+// function filterByType(selectedType) {
+//     if(selectedType) {
+//         fetch(`/slips?type=${selectedType}`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log("필터링 된 데이터: ",data);
+//
+//             })
+//     }
+// }
 </script>
 </body>
 </html>

@@ -18,4 +18,8 @@ public interface IF_AccountService {
 
 	public void psInsert(SlipVO slipvo) throws Exception;
 
+	List<SlipVO> selectpvName(Pagevo pagevo, String pvName) throws Exception;
+	List<SlipVO> selectpvCmpy(Pagevo pagevo, String pvCmpy) throws Exception;
+	int countpvName(String pvName) throws Exception;
+	int countpvCmpy(String pvCmpy) throws Exception;
 }

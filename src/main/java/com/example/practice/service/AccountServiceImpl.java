@@ -7,7 +7,9 @@ import com.example.practice.vo.SlipVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service    // 해당 클래스를 객체로 만들어라..
 @RequiredArgsConstructor
@@ -53,10 +55,42 @@ public class AccountServiceImpl implements IF_AccountService{
             case "asset" -> slipvo.setPvslipCode("자산");
             case "liability" -> slipvo.setPvslipCode("부채");
         }
+		switch (slipvo.getPvPay()) {
+			case "cash" -> slipvo.setPvPay("현금");
+			case "card" -> slipvo.setPvPay("카드");
+			case "bank" -> slipvo.setPvPay("계좌이체");
+			case "note" -> slipvo.setPvPay("어음");
+		}
 		adao.psInsert(slipvo);
 		System.out.println("성공");
 	}
+	@Override
+	public List<SlipVO> selectpvName(Pagevo pagevo, String pvName) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("pvName", pvName);
+		return adao.selectpvName(params);
+	}
 
+	@Override
+	public List<SlipVO> selectpvCmpy(Pagevo pagevo, String pvCmpy) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("pvCmpy", pvCmpy);
+		return adao.selectpvCmpy(params);
+	}
+
+	@Override
+	public int countpvName(String pvName) throws Exception {
+		return adao.countpvName(pvName);
+	}
+
+	@Override
+	public int countpvCmpy(String pvCmpy) throws Exception {
+		return adao.countpvCmpy(pvCmpy);
+	}
 
 
 }

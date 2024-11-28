@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -19,4 +20,14 @@ public interface IF_AccountDao {
 	public int totalCountPV() throws Exception;
 	public void psInsert(SlipVO slipvo)throws Exception;
 
+	List<SlipVO> selectpvName(Map<String, Object> params);
+
+	// 작성자명으로 검색된 총 개수
+	int countpvName(String pvName);
+
+	// 거래처명으로 검색
+	List<SlipVO> selectpvCmpy(Map<String, Object> params);
+
+	// 거래처명으로 검색된 총 개수
+	int countpvCmpy(String pvCmpy);
 }
