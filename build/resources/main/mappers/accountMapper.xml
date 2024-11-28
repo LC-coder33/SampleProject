@@ -26,10 +26,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="selectpvCmpy" resultType="com.example.practice.vo.SlipVO">
 		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV where PVCMPY = #{pvCmpy} order by PVCODE ASC) sub)
-							t where rnum between #{startNO} and #{endNO}
+		t where rnum between #{startNO} and #{endNO}
 	</select>
 	<select id="countpvCmpy" resultType="int">
 		select count(*) from ERPSLIPPV where PVCMPY = #{pvCmpy}
+	</select>
+	<select id="selectByType" resultType="com.example.practice.vo.SlipVO">
+		SELECT t.* FROM (select sub.*, rownum as rnum from (select * from ERPSLIPPV where PVSLIPCODE = #{pvslipCode} order by PVCODE ASC) sub)
+		t where rnum between #{startNO} and #{endNO}
+	</select>
+	<select id="countByType" parameterType="String" resultType="int">
+		select COUNT(*)	from ERPSLIPPV where PVSLIPCODE = #{pvslipCode}
 	</select>
 </mapper>
 

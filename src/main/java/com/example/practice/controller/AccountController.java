@@ -42,7 +42,6 @@ public class AccountController {
     @GetMapping("/search")
     public ModelAndView search(@RequestParam String searchKeyword,
                                @RequestParam String pvtext,
-//                               @ModelAttribute Pagevo pagevo,
                                Model model) throws Exception {
 
         Pagevo pagevo = new Pagevo();
@@ -58,6 +57,30 @@ public class AccountController {
             pagevo.setTotalCount(accountservice.countpvCmpy(pvtext));
             slipList = accountservice.selectpvCmpy(pagevo, pvtext);
         } else {
+            pagevo.setTotalCount(accountservice.totalCountPV());
+            slipList = accountservice.selectAll(pagevo);
+        }
+
+        model.addAttribute("slips", slipList);
+        model.addAttribute("pagevo", pagevo);
+        return mv;
+    }
+
+    @GetMapping("/slips")
+    public ModelAndView filterByType(@RequestParam String pvslipCode, Model model
+                                     ) throws Exception {
+        Pagevo pagevo = new Pagevo();
+        pagevo.setPage(1);
+
+        List<SlipVO> slipList;
+        ModelAndView mv = new ModelAndView("sliplist");
+
+        if(pvslipCode != null && !pvslipCode.isEmpty()) {
+            // 타입별 전표 개수와 목록 조회
+            pagevo.setTotalCount(accountservice.countByType(pvslipCode));
+            slipList = accountservice.selectByType(pagevo, pvslipCode);
+        } else {
+            // 전체 전표 개수와 목록 조회
             pagevo.setTotalCount(accountservice.totalCountPV());
             slipList = accountservice.selectAll(pagevo);
         }

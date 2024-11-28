@@ -22,4 +22,7 @@ public interface IF_AccountService {
 	List<SlipVO> selectpvCmpy(Pagevo pagevo, String pvCmpy) throws Exception;
 	int countpvName(String pvName) throws Exception;
 	int countpvCmpy(String pvCmpy) throws Exception;
+
+	List<SlipVO> selectByType(Pagevo pagevo, String pvslipCode) throws Exception;
+	int countByType(String pvslipCode) throws Exception;
 }

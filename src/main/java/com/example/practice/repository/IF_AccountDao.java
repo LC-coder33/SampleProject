@@ -4,6 +4,7 @@ import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -30,4 +31,11 @@ public interface IF_AccountDao {
 
 	// 거래처명으로 검색된 총 개수
 	int countpvCmpy(String pvCmpy);
+
+	// 타입별 전표 목록 조회
+	List<SlipVO> selectByType(Map<String, Object> params);
+
+	// 타입별 전표 개수 조회
+	int countByType(String pvslipCode) throws Exception;
+
 }

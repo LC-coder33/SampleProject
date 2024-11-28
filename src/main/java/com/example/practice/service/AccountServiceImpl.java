@@ -92,5 +92,24 @@ public class AccountServiceImpl implements IF_AccountService{
 		return adao.countpvCmpy(pvCmpy);
 	}
 
+	@Override
+	public List<SlipVO> selectByType(Pagevo pagevo, String pvslipCode) throws Exception {
+        switch (pvslipCode) {
+            case "sales" -> pvslipCode = "매출";
+            case "cost" -> pvslipCode = "비용";
+            case "asset" -> pvslipCode = "자산";
+            case "liability" -> pvslipCode = "부채";
+        }
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("pvslipCode", pvslipCode);
+		return adao.selectByType(params);
+	}
+
+	@Override
+	public int countByType(String pvslipCode) throws Exception {
+		return adao.countByType(pvslipCode);
+	}
 
 }

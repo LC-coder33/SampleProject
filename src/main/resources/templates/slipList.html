@@ -176,10 +176,10 @@
             <div id="dropdown-filter">
                 <select id="type-select" onchange="filterByType(this.value)">
                     <option value="">전표타입</option>
-                    <option value="매출">매출</option>
-                    <option value="비용">비용</option>
-                    <option value="자산">자산</option>
-                    <option value="부채">부채</option>
+                    <option value="sales">매출</option>
+                    <option value="cost">비용</option>
+                    <option value="asset">자산</option>
+                    <option value="liability">부채</option>
                 </select>
             </div>
         </th>
@@ -288,6 +288,13 @@ function updatePlaceholder() {
     }
 }
 
+function filterByType(pvslipCode) {
+    if(pvslipCode) {
+        window.location.href = `/slips?pvslipCode=${pvslipCode}`;
+    } else {
+        window.location.href = '/slistView';
+    }
+}
 // function filterByType(selectedType) {
 //     if(selectedType) {
 //         fetch(`/slips?type=${selectedType}`)
