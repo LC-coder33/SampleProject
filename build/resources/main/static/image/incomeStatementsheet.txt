@@ -1,0 +1,63 @@
+매출
+-제품 매출(income)			제품매출
+-서비스 매출(income)		서비스 매출
+-기타 수익(income)			기타수익
+-이자 수익(income)			이자수익
+-외상매출금(income)		아무 곳에도 포함 안됨
+-매출채권(income)			아무 곳에도 포함 안됨
+비용
+-급여비(outcome)			매출원가
+-임금비(outcome)			매출원가
+-소모품비(outcome)		매출원가
+-광고비(outcome)			판매비와 관리비
+-인쇄비(outcome)			판매비와 관리비
+-판매비(outcome)			판매비와 관리비
+-운송비(outcome)			매출원가
+-관리비(outcome)			판매비와 관리비
+-기타 관리비(outcome)		판매비와 관리비
+-감가상각비(outcome)		판매비와 관리비
+자산
+-재고자산(outcome)		매출원가
+-기계장비(outcome)		매출원가
+-감가상각누계액(outcome)		포함 안됨
+부채
+-단기부채 이자(outcome)		기타 비용
+-장기부채 이자(outcome)		기타 비용
+-미지급 비용(outcome)		기타 비용
+-미지급 급여(outcome)		기타 비용
+
+1. 매출 (Revenue)
+   - 제품 매출
+   - 서비스 매출
+   - 기타 수익
+   - 이자 수익
+
+2. 매출원가 (Cost of Goods Sold, COGS)
+   - 소모품비
+   - 운송비
+   - 급여비 (제조직 근로자 급여)
+   - 임금비 (제조직 근로자 임금)
+   - 기계장비 (감가상각비)
+   - 재고자산 (판매된 재고의 원가)
+
+3. 부가세 (Value added tax, VAT)		매출-부가세
+
+4. 매출 총이익 (Gross Profit)			매출-매출원가-부가세
+
+5. 판매비와 관리비 (Selling, General, and Administrative Expenses, SG&A)
+   - 광고비
+   - 인쇄비
+   - 판매비
+   - 관리비
+   - 기타 관리비
+   - 감가상각비 (관리자산 관련)
+  
+6. 영업이익 (Operating Income) = 매출 총이익 - 판매비와 관리비
+
+7. 기타 비용
+   - 단기부채 이자
+   - 장기부채 이자
+   - 미지급 비용
+   - 미지급 급여
+
+8. 순이익 (Net Income)	영업이익 - 기타 비용

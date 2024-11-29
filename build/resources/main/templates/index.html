@@ -297,8 +297,7 @@
     const slipType = document.getElementById("slipType").value;
     const accountType = document.getElementById("accountType").value;
 
-    if ((slipType === 'sales' && accountType.includes('매출')) ||
-            (slipType === 'cost' && accountType.includes('매입'))) {
+    if ((slipType === '매출' || slipType === 'sales' || accountType.includes('매출'))) {
       document.getElementById("vat").value = Math.round(amount * 0.1);
     } else {
       document.getElementById("vat").value = 0;
