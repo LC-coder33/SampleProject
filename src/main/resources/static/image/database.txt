@@ -141,14 +141,18 @@ pvPay varchar2(50) NOT NULL,	/* 결제 수단 */
 pvComment varchar2(100) NOT NULL	/* 적요 */
 );
 
+SELECT TO_CHAR(pvDate, 'YYYY-MM-DD') AS formatted_date
+FROM erpSlippv WHERE pvcode = '75';
 
 insert into erpSlippv values (slip_seq.NEXTVAL, '매출','이찬','2024/02/04','상품 판매','삼성','100000','1000','카드','담보');
 
+SELECT TO_CHAR(sysdate, 'yyyy-mm-dd') FROM dual;
+SELECT TO_CHAR(sysdate, 'yyyy-mm-dd hh24:mi:ss') FROM dual;
+
+SELECT PVPRICE FROM erpSlippv WHERE pvDate >= TO_DATE('2019-01-01') AND pvDate <= TO_DATE('2024-01-01');
 
 
 SELECT * FROM erpSlippv;
-
-
 
 CREATE TABLE erpSliprg(
 rgCode number(20) PRIMARY KEY,	/* 승인이 떨어진 전표 코드 */
@@ -182,6 +186,10 @@ DELETE FROM erpSlippv;
 
 
 CREATE SEQUENCE slip_seq
+START WITH 1
+INCREMENT BY 1;
+
+CREATE SEQUENCE rg_seq
 START WITH 1
 INCREMENT BY 1;
 
