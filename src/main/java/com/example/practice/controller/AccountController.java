@@ -42,10 +42,11 @@ public class AccountController {
     @GetMapping("/search")
     public ModelAndView search(@RequestParam String searchKeyword,
                                @RequestParam String pvtext,
+                               @RequestParam(defaultValue = "1") Integer page,  // 페이지 파라미터 추가
                                Model model) throws Exception {
 
         Pagevo pagevo = new Pagevo();
-        pagevo.setPage(1);
+        pagevo.setPage(page);  // 전달받은 페이지 번호 설정
 
         List<SlipVO> slipList;
         ModelAndView mv = new ModelAndView("sliplist");
@@ -63,30 +64,42 @@ public class AccountController {
 
         model.addAttribute("slips", slipList);
         model.addAttribute("pagevo", pagevo);
+        // 검색 파라미터들도 뷰에 전달하여 페이지 이동 시 검색 조건 유지
+        model.addAttribute("searchKeyword", searchKeyword);
+        model.addAttribute("pvtext", pvtext);
         return mv;
     }
 
     @GetMapping("/slips")
-    public ModelAndView filterByType(@RequestParam String pvslipCode, Model model
-                                     ) throws Exception {
+    public ModelAndView filterByType(@RequestParam String pvslipCode,
+                                     @RequestParam(defaultValue = "1") Integer page,
+                                     Model model) throws Exception {
         Pagevo pagevo = new Pagevo();
-        pagevo.setPage(1);
+        pagevo.setPage(page);  // 전달받은 페이지 번호 설정
 
         List<SlipVO> slipList;
         ModelAndView mv = new ModelAndView("sliplist");
 
         if(pvslipCode != null && !pvslipCode.isEmpty()) {
-            // 타입별 전표 개수와 목록 조회
             pagevo.setTotalCount(accountservice.countByType(pvslipCode));
             slipList = accountservice.selectByType(pagevo, pvslipCode);
         } else {
-            // 전체 전표 개수와 목록 조회
             pagevo.setTotalCount(accountservice.totalCountPV());
             slipList = accountservice.selectAll(pagevo);
         }
 
         model.addAttribute("slips", slipList);
         model.addAttribute("pagevo", pagevo);
+        model.addAttribute("pvslipCode", pvslipCode);  // 필터 조건 유지
         return mv;
     }
+
+    @PostMapping(value="delpvSlip")
+    public ResponseEntity<String> delpvSlip(@RequestParam("pvCode") int pvCode, HttpServletResponse response) throws Exception {
+        accountservice.delpvSlip(pvCode);
+        response.sendRedirect("slistView");
+        return ResponseEntity.ok("Delete successful");
+    }
+
+
 }

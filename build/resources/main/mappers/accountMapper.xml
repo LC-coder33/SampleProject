@@ -38,5 +38,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countByType" parameterType="String" resultType="int">
 		select COUNT(*)	from ERPSLIPPV where PVSLIPCODE = #{pvslipCode}
 	</select>
+	<delete id="delpvSlip" parameterType="int">
+		delete from ERPSLIPPV where PVCODE=#{pvCode}
+	</delete>
 </mapper>
 

@@ -38,4 +38,5 @@ public interface IF_AccountDao {
 	// 타입별 전표 개수 조회
 	int countByType(String pvslipCode) throws Exception;
 
+	public void delpvSlip(int pvCode) throws Exception;
 }

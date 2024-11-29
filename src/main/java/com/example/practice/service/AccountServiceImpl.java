@@ -109,7 +109,18 @@ public class AccountServiceImpl implements IF_AccountService{
 
 	@Override
 	public int countByType(String pvslipCode) throws Exception {
+		switch (pvslipCode) {
+			case "sales" -> pvslipCode = "매출";
+			case "cost" -> pvslipCode = "비용";
+			case "asset" -> pvslipCode = "자산";
+			case "liability" -> pvslipCode = "부채";
+		}
 		return adao.countByType(pvslipCode);
 	}
+
+	@Override
+	public void delpvSlip(int pvCode) throws Exception {
+		adao.delpvSlip(pvCode);
+    }
 
 }

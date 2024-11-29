@@ -14,9 +14,9 @@ public interface IF_AccountService {
 
 	List<SlipVO> selectAll(Pagevo pagevo) throws Exception;
 
-	public int totalCountPV() throws Exception;
+	int totalCountPV() throws Exception;
 
-	public void psInsert(SlipVO slipvo) throws Exception;
+	void psInsert(SlipVO slipvo) throws Exception;
 
 	List<SlipVO> selectpvName(Pagevo pagevo, String pvName) throws Exception;
 	List<SlipVO> selectpvCmpy(Pagevo pagevo, String pvCmpy) throws Exception;
@@ -25,4 +25,6 @@ public interface IF_AccountService {
 
 	List<SlipVO> selectByType(Pagevo pagevo, String pvslipCode) throws Exception;
 	int countByType(String pvslipCode) throws Exception;
+
+	void delpvSlip(int pvCode) throws Exception;
 }

@@ -192,6 +192,7 @@
         <th>결제 수단</th>
         <th>적요</th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -213,7 +214,16 @@
         <td th:text="${slip.pvComment}"></td>
         <td>
             <button class="btn btn-secondary" th:onclick="">승인</button>
-            <button class="btn btn-secondary" th:onclick="">삭제</button>
+        <td>
+            <form action="/delpvSlip" method="post" style="display:inline;">
+                <input type="hidden" name="pvCode" th:value="${slip.pvCode}" />
+                <button type="submit" class="btn btn-secondary">삭제</button>
+            </form>
+        </td>
+
+        <!--            <button class="btn btn-secondary"-->
+<!--                    th:onclick="'deleteSlip(' + ${slip.pvCode} + ')'">삭제</button>-->
+
         </td>
     </tr>
     </tbody>
@@ -295,6 +305,31 @@ function filterByType(pvslipCode) {
         window.location.href = '/slistView';
     }
 }
+
+// function deleteSlip(pvCode) {
+//     if (confirm("정말로 이 전표를 삭제하시겠습니까?")) {
+//         fetch(`/delpvSlip`, {  // 경로 수정
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             },
+//             body: `pvCode=${pvCode}`
+//         })
+//             .then(response => response.json())
+//             .then(data => {
+//                 if (data === "Delete successful") {
+//                     alert("삭제가 완료되었습니다.");
+//                     location.reload();
+//                 } else {
+//                     alert("삭제 중 오류가 발생했습니다.");
+//                 }
+//             })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//                 alert("삭제 요청 중 오류가 발생했습니다.");
+//             });
+//     }
+// }
 // function filterByType(selectedType) {
 //     if(selectedType) {
 //         fetch(`/slips?type=${selectedType}`)
