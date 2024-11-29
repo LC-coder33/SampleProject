@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERP Slip List</title>
+    <title>ERP Slip pre-registered List</title>
     <style>
         /* 기본 스타일 */
         body {
@@ -24,12 +24,14 @@
             background-color: #ffffff; /* 테이블 배경 흰색 */
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         th, td {
             padding: 12px 15px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #ddd;
+
         }
 
         th {
@@ -159,6 +161,7 @@
         #type-select:hover {
             background-color: #c8e6c9;
         }
+
     </style>
 </head>
 <body>
@@ -168,9 +171,9 @@
 <table id="slip-list">
     <thead>
     <tr>
-        <th>
-            <input type="checkbox" name="checkbox-all" id="checkbox-all">
-        </th>
+<!--        <th>-->
+<!--            <input type="checkbox" name="checkbox-all" id="checkbox-all">-->
+<!--        </th>-->
         <th>전표 코드</th>
         <th>
             <div id="dropdown-filter">
@@ -199,21 +202,35 @@
     <!-- 슬립 목록을 Thymeleaf로 출력 -->
     <tr th:each="slip, status : ${slips}"
         th:with="index=${(pagevo.page - 1) * 10 + status.count}">
-        <td>
-            <input type="checkbox">
-        </td>
+<!--        <td>-->
+<!--            <input type="checkbox">-->
+<!--        </td>-->
         <td th:text="${slip.pvCode}"></td>
         <td th:text="${slip.pvslipCode}"></td>
         <td th:text="${slip.pvName}"></td>
         <td th:text="${slip.pvDate}"></td>
         <td th:text="${slip.pvslipName}"></td>
         <td th:text="${slip.pvCmpy}"></td>
-        <td th:text="${#numbers.formatDecimal(slip.pvPrice, 0, 'COMMA', 0, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(slip.pvFee, 0, 'COMMA', 0, 'POINT')}"></td>
+        <td th:text="${slip.pvPrice}"></td>
+        <td th:text="${slip.pvFee}"></td>
         <td th:text="${slip.pvPay}"></td>
         <td th:text="${slip.pvComment}"></td>
         <td>
-            <button class="btn btn-secondary" th:onclick="">승인</button>
+            <form action="/rgInsert" method="post" style="display:inline;">
+                <input type="hidden" name="pvCode" th:value="${slip.pvCode}" />
+                <input type="hidden" name="rgslipCode" th:value="${slip.pvslipCode}" />
+                <input type="hidden" name="rgName" th:value="${slip.pvName}" />
+                <input type="hidden" name="rgDate" th:value="${slip.pvDate}" />
+                <input type="hidden" name="rgslipName" th:value="${slip.pvslipName}" />
+                <input type="hidden" name="rgCmpy" th:value="${slip.pvCmpy}" />
+<!--                <input type="hidden" name="rgPrice" th:value="${slip.#numbers.formatDecimal(slip.pvPrice, 0, 'COMMA', 0, 'POINT')}" />-->
+<!--                <input type="hidden" name="rgFee" th:value="${#numbers.formatDecimal(slip.pvFee, 0, 'COMMA', 0, 'POINT')}" />-->
+                <input type="hidden" name="rgPrice" th:value="${slip.pvPrice}" />
+                <input type="hidden" name="rgFee" th:value="${slip.pvFee}" />
+                <input type="hidden" name="rgPay" th:value="${slip.pvPay}" />
+                <input type="hidden" name="rgComment" th:value="${slip.pvComment}" />
+                <button class="btn btn-secondary" th:onclick="">승인</button>
+            </form>
         <td>
             <form action="/delpvSlip" method="post" style="display:inline;">
                 <input type="hidden" name="pvCode" th:value="${slip.pvCode}" />
@@ -274,9 +291,9 @@
         <span>다음 ▶</span>
     </a>
 </div>
-<form id="searchbox" name="searchbox" action="/search" method="get">
+<form id="searchbox" name="searchbox" action="/search" method="get" onsubmit="return validateSearch()">
     <select id="searchkeyword" name="searchKeyword" onchange="updatePlaceholder()">
-        <option value="">선택하세요</option>
+        <option value="selectplz">선택하세요</option>
         <option value="name">작성자</option>
         <option value="cmpy">거래처명</option>
     </select>
@@ -285,18 +302,33 @@
     <input type="submit" id="pvsubmit" value="검색">
 </form>
 <script>
-function updatePlaceholder() {
-    const searchKeyword = document.getElementById('searchkeyword').value;
-    const pvText = document.getElementById('pvtext');
+    function validateSearch() {
+        const searchKeyword = document.getElementById('searchkeyword').value;
+        const pvText = document.getElementById('pvtext').value.trim();
+        // 항목 미선택시 경고 표시
+        if (searchKeyword === 'selectplz') {
+            alert("검색 항목을 선택해주세요.");
+            return false;
+        }
+        // 텍스트가 비어있을 경우 경고 표시
+        if (!pvText) {
+            alert("검색어를 올바르게 입력해 주세요.");
+            return false;
+        }
 
-    // searchKeyword.innerHTML = '<option value="">선택하세요</option>';
-
-    if (searchKeyword === 'name') {
-        pvText.placeholder = '작성자명을 입력해주세요';
-    } else if (searchKeyword === 'cmpy') {
-        pvText.placeholder = '거래처명을 입력해주세요';
+        return true;
     }
-}
+
+    function updatePlaceholder() {
+        const searchKeyword = document.getElementById('searchkeyword').value;
+        const pvText = document.getElementById('pvtext');
+
+        if (searchKeyword === 'name') {
+            pvText.placeholder = '작성자명을 입력해주세요';
+        } else if (searchKeyword === 'cmpy') {
+            pvText.placeholder = '거래처명을 입력해주세요';
+        }
+    }
 
 function filterByType(pvslipCode) {
     if(pvslipCode) {

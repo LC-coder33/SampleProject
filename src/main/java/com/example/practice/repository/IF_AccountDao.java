@@ -3,8 +3,8 @@ package com.example.practice.repository;
 import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
+import com.example.practice.vo.SliprgVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,4 +39,23 @@ public interface IF_AccountDao {
 	int countByType(String pvslipCode) throws Exception;
 
 	public void delpvSlip(int pvCode) throws Exception;
+
+	public void rgInsert(SlipVO slipvo) throws Exception;
+
+	public List<SliprgVO> selectrgAll(Pagevo pagevo) throws Exception;
+
+	public int totalCountRG() throws Exception;
+
+	List<SliprgVO> selectrgName(Map<String, Object> params) throws Exception;
+
+	int countrgName(String pvName) throws Exception;
+
+	List<SliprgVO> selectrgCmpy(Map<String, Object> params) throws Exception;
+
+	int countrgCmpy(String rgCmpy) throws Exception;
+
+	List<SliprgVO> selectByrgType(Map<String, Object> params);
+
+	int countByrgType(String rgslipCode);
+
 }

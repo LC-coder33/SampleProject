@@ -3,8 +3,10 @@ package com.example.practice.service;
 import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
+import com.example.practice.vo.SliprgVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IF_AccountService {
 	//서비스 작업을 메서드로 정의 합니다.
@@ -27,4 +29,13 @@ public interface IF_AccountService {
 	int countByType(String pvslipCode) throws Exception;
 
 	void delpvSlip(int pvCode) throws Exception;
+	void rgInsert(SlipVO slipvo) throws Exception;
+	List<SliprgVO> selectrgAll(Pagevo pagevo) throws Exception;
+	int totalCountRG() throws Exception;
+	List<SliprgVO> selectrgName(Pagevo pagevo, String rgName) throws Exception;
+	int countrgName(String rgName) throws Exception;
+	List<SliprgVO> selectrgCmpy(Pagevo pagevo, String rgCmpy) throws Exception;
+	int countrgCmpy(String rgCmpy) throws Exception;
+	List<SliprgVO> selectByrgType(Pagevo pagevo, String rgslipCode);
+	int countByrgType(String rgslipCode) throws Exception;
 }

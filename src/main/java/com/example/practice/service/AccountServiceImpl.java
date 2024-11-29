@@ -4,6 +4,7 @@ import com.example.practice.repository.IF_AccountDao;
 import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
+import com.example.practice.vo.SliprgVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -122,5 +123,77 @@ public class AccountServiceImpl implements IF_AccountService{
 	public void delpvSlip(int pvCode) throws Exception {
 		adao.delpvSlip(pvCode);
     }
+	public void rgInsert(SlipVO slipvo) throws Exception {
+		adao.rgInsert(slipvo);
+		System.out.println("전표 승인 대기 -> 전표 관리");
+	}
+
+	@Override
+	public List<SliprgVO> selectrgAll(Pagevo pagevo) throws Exception {
+		List<SliprgVO> list = adao.selectrgAll(pagevo);
+		for(SliprgVO s : list) {
+			String date = s.getRgDate();
+			s.setRgDate(date.substring(0,10));
+		}
+		return list;
+	}
+
+	@Override
+	public int totalCountRG() throws Exception {
+		return adao.totalCountRG();
+	}
+
+	@Override
+	public List<SliprgVO> selectrgName(Pagevo pagevo, String rgName) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("rgName", rgName);
+		return adao.selectrgName(params);
+	}
+
+	@Override
+	public int countrgName(String rgName) throws Exception {
+		return adao.countrgName(rgName);
+	}
+
+	@Override
+	public List<SliprgVO> selectrgCmpy(Pagevo pagevo, String rgCmpy) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("rgCmpy", rgCmpy);
+		return adao.selectrgCmpy(params);
+	}
+
+	@Override
+	public int countrgCmpy(String rgCmpy) throws Exception {
+		return adao.countrgCmpy(rgCmpy);
+	}
+	@Override
+	public List<SliprgVO> selectByrgType(Pagevo pagevo, String rgslipCode) {
+		switch (rgslipCode) {
+			case "sales" -> rgslipCode = "매출";
+			case "cost" -> rgslipCode = "비용";
+			case "asset" -> rgslipCode = "자산";
+			case "liability" -> rgslipCode = "부채";
+		}
+		Map<String, Object> params = new HashMap<>();
+		params.put("startNO", pagevo.getStartNo());
+		params.put("endNO", pagevo.getEndNo());
+		params.put("rgslipCode", rgslipCode);
+		return adao.selectByrgType(params);
+	}
+
+	@Override
+	public int countByrgType(String rgslipCode) {
+		switch (rgslipCode) {
+			case "sales" -> rgslipCode = "매출";
+			case "cost" -> rgslipCode = "비용";
+			case "asset" -> rgslipCode = "자산";
+			case "liability" -> rgslipCode = "부채";
+		}
+		return adao.countByrgType(rgslipCode);
+	}
 
 }

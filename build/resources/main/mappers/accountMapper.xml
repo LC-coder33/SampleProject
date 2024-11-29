@@ -11,28 +11,78 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into erpSlippv values (slip_seq.NEXTVAL,#{pvslipCode},#{pvName},#{pvDate},#{pvslipName},#{pvCmpy},#{pvPrice},#{pvFee},#{pvPay},#{pvComment})
 	</insert>
 	<select id="selectAll" resultType="com.example.practice.vo.SlipVO">
-		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV order by PVCODE ASC) sub)
-		t where rnum between #{startNo} and #{endNo}
+		select t.* from (
+							select sub.*, rownum as rnum from (
+																  select
+																	  PVCODE,
+																	  PVSLIPCODE,
+																	  PVNAME,
+																	  TO_CHAR(PVDATE, 'YYYY-MM-DD') as PVDATE,
+																	  PVSLIPNAME,
+																	  PVCMPY,
+																	  PVPRICE,
+																	  PVFEE,
+																	  PVPAY,
+																	  PVCOMMENT
+																  from ERPSLIPPV order by PVCODE ASC
+															  ) sub
+						) t where rnum between #{startNo} and #{endNo}
 	</select>
 	<select id="totalCountPV" resultType="int">
 		select count(*) from ERPSLIPPV
 	</select>
 	<select id="selectpvName" resultType="com.example.practice.vo.SlipVO">
-		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV where PVNAME = #{pvName} order by PVCODE ASC) sub)
-		t where rnum between #{startNO} and #{endNO}
+		select t.* from (
+							select sub.*, rownum as rnum from (
+																  select
+																	  PVCODE,
+																	  PVSLIPCODE,
+																	  PVNAME,
+																	  TO_CHAR(PVDATE, 'YYYY-MM-DD') as PVDATE,
+																	  PVSLIPNAME,
+																	  PVCMPY,
+																	  PVPRICE,
+																	  PVFEE,
+																	  PVPAY,
+																	  PVCOMMENT
+																  from ERPSLIPPV where PVNAME = #{pvName} order by PVCODE ASC
+															  ) sub
+						) t where rnum between #{startNO} and #{endNO}
 	</select>
 	<select id="countpvName" resultType="int">
 		select count(*) from ERPSLIPPV where PVNAME = #{pvName}
 	</select>
 	<select id="selectpvCmpy" resultType="com.example.practice.vo.SlipVO">
-		select t.* from (select sub.*, rownum as rnum from (select * from ERPSLIPPV where PVCMPY = #{pvCmpy} order by PVCODE ASC) sub)
+		select t.* from (select sub.*, rownum as rnum from (select
+																PVCODE,
+																PVSLIPCODE,
+																PVNAME,
+																TO_CHAR(PVDATE, 'YYYY-MM-DD') as PVDATE,
+																PVSLIPNAME,
+																PVCMPY,
+																PVPRICE,
+																PVFEE,
+																PVPAY,
+																PVCOMMENT
+		                                                        from ERPSLIPPV where PVCMPY = #{pvCmpy} order by PVCODE ASC) sub)
 		t where rnum between #{startNO} and #{endNO}
 	</select>
 	<select id="countpvCmpy" resultType="int">
 		select count(*) from ERPSLIPPV where PVCMPY = #{pvCmpy}
 	</select>
 	<select id="selectByType" resultType="com.example.practice.vo.SlipVO">
-		SELECT t.* FROM (select sub.*, rownum as rnum from (select * from ERPSLIPPV where PVSLIPCODE = #{pvslipCode} order by PVCODE ASC) sub)
+		SELECT t.* FROM (select sub.*, rownum as rnum from (select
+																PVCODE,
+																PVSLIPCODE,
+																PVNAME,
+																TO_CHAR(PVDATE, 'YYYY-MM-DD') as PVDATE,
+																PVSLIPNAME,
+																PVCMPY,
+																PVPRICE,
+																PVFEE,
+																PVPAY,
+																PVCOMMENT
+		                                                        from ERPSLIPPV where PVSLIPCODE = #{pvslipCode} order by PVCODE ASC) sub)
 		t where rnum between #{startNO} and #{endNO}
 	</select>
 	<select id="countByType" parameterType="String" resultType="int">
@@ -41,5 +91,87 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delpvSlip" parameterType="int">
 		delete from ERPSLIPPV where PVCODE=#{pvCode}
 	</delete>
+	<insert id="rgInsert" parameterType="com.example.practice.vo.SlipVO">
+		insert into ERPSLIPRG (RGCODE, RGSLIPCODE, RGNAME, RGDATE, RGSLIPNAME, RGCMPY, RGPRICE, RGFEE, RGPAY, RGCOMMENT)
+		select rg_seq.NEXTVAL, PVSLIPCODE, PVNAME, PVDATE, PVSLIPNAME, PVCMPY, PVPRICE, PVFEE, PVPAY, PVCOMMENT
+		from ERPSLIPPV
+		where PVCODE = #{pvCode}
+	</insert>
+	<select id="selectrgAll" resultType="com.example.practice.vo.SliprgVO">
+		select t.* from (
+			select sub.*, rownum as rnum from (
+												  select
+													  RGCODE,
+													  RGSLIPCODE,
+													  RGNAME,
+													  TO_CHAR(RGDATE, 'YYYY-MM-DD') as RGDATE,
+													  RGSLIPNAME,
+													  RGCMPY,
+													  RGPRICE,
+													  RGFEE,
+													  RGPAY,
+													  RGCOMMENT
+												  from ERPSLIPRG order by RGCODE ASC
+											  ) sub
+		) t where rnum between #{startNo} and #{endNo}
+	</select>
+	<select id="totalCountRG" resultType="int">
+		select count(*) from ERPSLIPRG
+	</select>
+	<select id="selectrgName" resultType="com.example.practice.vo.SliprgVO">
+		select t.* from (
+							select sub.*, rownum as rnum from (
+																  select
+																	  RGCODE,
+																	  RGSLIPCODE,
+																	  RGNAME,
+																	  TO_CHAR(RGDATE, 'YYYY-MM-DD') as RGDATE,
+																	  RGSLIPNAME,
+																	  RGCMPY,
+																	  RGPRICE,
+																	  RGFEE,
+																	  RGPAY,
+																	  RGCOMMENT
+																  from ERPSLIPRG where RGNAME = #{rgName} order by RGCODE ASC
+															  ) sub
+						) t where rnum between #{startNO} and #{endNO}
+	</select>
+	<select id="countrgName" resultType="int">
+		select count(*) from ERPSLIPRG where RGNAME = #{rgName}
+	</select>
+	<select id="selectrgCmpy" resultType="com.example.practice.vo.SliprgVO">
+		select t.* from (select sub.*, rownum as rnum from (select
+																RGCODE,
+																RGSLIPCODE,
+																RGNAME,
+																TO_CHAR(RGDATE, 'YYYY-MM-DD') as RGDATE,
+																RGSLIPNAME,
+																RGCMPY,
+																RGPRICE,
+																RGFEE,
+																RGPAY,
+																RGCOMMENT from ERPSLIPRG where RGCMPY = #{rgCmpy} order by RGCODE ASC) sub)
+							t where rnum between #{startNO} and #{endNO}
+	</select>
+	<select id="countrgCmpy" resultType="int">
+		select count(*) from ERPSLIPRG where RGCMPY = #{rgCmpy}
+	</select>
+	<select id="selectByrgType" resultType="com.example.practice.vo.SliprgVO">
+		SELECT t.* FROM (select sub.*, rownum as rnum from (select
+																RGCODE,
+																RGSLIPCODE,
+																RGNAME,
+																TO_CHAR(RGDATE, 'YYYY-MM-DD') as RGDATE,
+																RGSLIPNAME,
+																RGCMPY,
+																RGPRICE,
+																RGFEE,
+																RGPAY,
+																RGCOMMENT from ERPSLIPRG where RGSLIPCODE = #{rgslipCode} order by RGCODE ASC) sub)
+							t where rnum between #{startNO} and #{endNO}
+	</select>
+	<select id="countByrgType" parameterType="String" resultType="int">
+		select COUNT(*)	from ERPSLIPRG where RGSLIPCODE = #{rgslipCode}
+	</select>
 </mapper>
 
