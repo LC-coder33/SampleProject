@@ -38,6 +38,9 @@ public class AccountController {
         List<SlipVO> slipList = accountservice.selectAll(pagevo);  // 전표 목록 가져오기
         ModelAndView mv = new ModelAndView("sliplist");  // sliplist.html 파일을 반환
         model.addAttribute("slips", slipList);  // 전표 목록을 "slips"라는 이름으로 모델에 추가
+        System.out.println(model.addAttribute("slips", slipList));
+        System.out.println("slipList size: " + slipList.size());
+        System.out.println("slipList content: " + slipList);
         return mv;
     }
     @GetMapping("/sliprgList")
