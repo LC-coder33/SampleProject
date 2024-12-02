@@ -185,8 +185,8 @@ public class AccountController {
         return mv;
     }
     @GetMapping("/getincomevalues")
-    public ModelAndView getIncomeStatement(@RequestParam("startDate") String startDate,
-                                     @RequestParam("endDate") String endDate, Model model) throws Exception {
+    public ModelAndView getIncomeStatement(@RequestParam(value = "startDate", defaultValue = "0000-01-01") String startDate,
+                                     @RequestParam(value = "endDate", defaultValue = "9999-12-31") String endDate, Model model) throws Exception {
         DateRangeVO dvo = new DateRangeVO();
         // String을 LocalDate로 파싱
         LocalDate startLocalDate = LocalDate.parse(startDate);
