@@ -65,11 +65,11 @@
 
 <div class="container">
   <h1>손익 계산서</h1>
-  <form id="dateSubmit" name="dateSubmit">
-    <input type="date" id="startDate" name="startDate">
-  <span>~</span>
-    <input type="date" id="endDate" name="endDate">
-    <input type="submit">
+  <form id="dateSubmit" name="dateSubmit" action="/getincomevalues" method="get">
+    <input type="date" id="startDate" name="startDate" th:value="${startDate}">
+    <span>~</span>
+    <input type="date" id="endDate" name="endDate" th:value="${endDate}">
+    <input type="submit" value="조회">
   </form>
   <!-- 매출 (Revenue) -->
   <div class="section-title">1. 매출 (Revenue)</div>
@@ -80,19 +80,19 @@
     </tr>
     <tr>
       <td>제품 매출</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${productSales}">₩ 0</td>
     </tr>
     <tr>
       <td>서비스 매출</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${serviceSales}">₩ 0</td>
     </tr>
     <tr>
       <td>기타 수익</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${otherSales}">₩ 0</td>
     </tr>
     <tr>
       <td>이자 수익</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${interestSales}">₩ 0</td>
     </tr>
   </table>
 
@@ -105,58 +105,46 @@
     </tr>
     <tr>
       <td>소모품비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${supplyCost}">₩ 0</td>
     </tr>
     <tr>
       <td>운송비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${shippingCost}">₩ 0</td>
     </tr>
     <tr>
       <td>급여비 (제조직 근로자 급여)</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${salaryCost}">₩ 0</td>
     </tr>
     <tr>
       <td>임금비 (제조직 근로자 임금)</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${wageCost}">₩ 0</td>
     </tr>
     <tr>
       <td>기계장비 (감가상각비)</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${mechanicalCost}">₩ 0</td>
     </tr>
     <tr>
       <td>재고자산 (판매된 재고의 원가)</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${inventoryCost}">₩ 0</td>
     </tr>
   </table>
 
-  <!-- 부가세 (VAT) -->
-  <div class="section-title">3. 부가세 (VAT)</div>
-  <table>
-    <tr>
-      <th>항목</th>
-      <th>금액</th>
-    </tr>
-    <tr>
-      <td>부가세</td>
-      <td class="highlight">₩ 0</td>
-    </tr>
-  </table>
 
   <!-- 매출 총이익 (Gross Profit) -->
-  <div class="section-title">4. 매출 총이익 (Gross Profit)</div>
+  <div class="section-title">3. 매출 총이익 (Gross Profit)</div>
   <table>
     <tr>
       <th>항목</th>
       <th>금액</th>
     </tr>
     <tr>
-      <td>매출 - 매출원가 - 부가세</td>
-      <td class="highlight">₩ 0</td>
+      <td>매출 - 매출원가</td>
+      <td class="highlight" th:text="'₩ ' + ${grossProfit}">₩ 0</td>
     </tr>
   </table>
 
   <!-- 판매비와 관리비 (SG&A) -->
-  <div class="section-title">5. 판매비와 관리비 (SG&A)</div>
+  <div class="section-title">4. 판매비와 관리비 (SG&A)</div>
   <table>
     <tr>
       <th>항목</th>
@@ -164,32 +152,32 @@
     </tr>
     <tr>
       <td>광고비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${marketingCost}">₩ 0</td>
     </tr>
     <tr>
       <td>인쇄비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${printCost}">₩ 0</td>
     </tr>
     <tr>
       <td>판매비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${sellingCost}">₩ 0</td>
     </tr>
     <tr>
       <td>관리비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${maintainCost}">₩ 0</td>
     </tr>
     <tr>
       <td>기타 관리비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${otherCost}">₩ 0</td>
     </tr>
     <tr>
       <td>감가상각비 (관리자산 관련)</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${depreciationCost}">₩ 0</td>
     </tr>
   </table>
 
   <!-- 영업이익 (Operating Income) -->
-  <div class="section-title">6. 영업이익 (Operating Income)</div>
+  <div class="section-title">5. 영업이익 (Operating Income)</div>
   <table>
     <tr>
       <th>항목</th>
@@ -197,12 +185,12 @@
     </tr>
     <tr>
       <td>매출 총이익 - 판매비와 관리비</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${operatingIncome}">₩ 0</td>
     </tr>
   </table>
 
   <!-- 기타 비용 -->
-  <div class="section-title">7. 기타 비용</div>
+  <div class="section-title">6. 기타 비용</div>
   <table>
     <tr>
       <th>항목</th>
@@ -210,19 +198,32 @@
     </tr>
     <tr>
       <td>단기부채 이자</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${stermDebt}">₩ 0</td>
     </tr>
     <tr>
       <td>장기부채 이자</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${ltermDebt}">₩ 0</td>
     </tr>
     <tr>
       <td>미지급 비용</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${payableCost}">₩ 0</td>
     </tr>
     <tr>
       <td>미지급 급여</td>
-      <td class="highlight">₩ 0</td>
+      <td class="highlight" th:text="'₩ ' + ${payableWage}">₩ 0</td>
+    </tr>
+  </table>
+
+  <!-- 부가세 (VAT) -->
+  <div class="section-title">7. 부가세 (VAT)</div>
+  <table>
+    <tr>
+      <th>항목</th>
+      <th>금액</th>
+    </tr>
+    <tr>
+      <td>부가세</td>
+      <td class="highlight" th:text="'₩ ' + ${sumupVAT}">₩ 0</td>
     </tr>
   </table>
 
@@ -234,8 +235,8 @@
       <th>금액</th>
     </tr>
     <tr class="total-row">
-      <td>영업이익 - 기타 비용</td>
-      <td class="highlight">₩ 0</td>
+      <td>영업이익 - 기타 비용 - 부가세</td>
+      <td class="highlight" th:text="'₩ ' + ${netIncome}">₩ 0</td>
     </tr>
   </table>
 </div>

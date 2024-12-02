@@ -1,8 +1,8 @@
 package com.example.practice.service;
 
 import com.example.practice.repository.IF_AccountDao;
+import com.example.practice.vo.DateRangeVO;
 import com.example.practice.vo.Pagevo;
-import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 import com.example.practice.vo.SliprgVO;
 import lombok.RequiredArgsConstructor;
@@ -19,21 +19,8 @@ public class AccountServiceImpl implements IF_AccountService{
 	private final IF_AccountDao adao;
 
 	@Override
-	public void join(RevenueVO rvo) throws Exception {
-		System.out.println("join 서비스");
-		// 아이디 검사 등 중복체크 할 수 있다.. <생략>
-		// dao에게 작업 지시해야 한다... 
-		// 실제 데이터를 저장하도록 지시한다...
-		adao.insertOne(rvo);
-	}
-
-	@Override
 	public List<SlipVO> selectAll(Pagevo pagevo) throws Exception {
 		List<SlipVO> list = adao.selectAll(pagevo);
-		for(SlipVO s : list) {
-			String date = s.getPvDate();
-			s.setPvDate(date.substring(0,10));
-		}
 		return list;
 	}
 
@@ -131,10 +118,6 @@ public class AccountServiceImpl implements IF_AccountService{
 	@Override
 	public List<SliprgVO> selectrgAll(Pagevo pagevo) throws Exception {
 		List<SliprgVO> list = adao.selectrgAll(pagevo);
-		for(SliprgVO s : list) {
-			String date = s.getRgDate();
-			s.setRgDate(date.substring(0,10));
-		}
 		return list;
 	}
 
@@ -194,6 +177,126 @@ public class AccountServiceImpl implements IF_AccountService{
 			case "liability" -> rgslipCode = "부채";
 		}
 		return adao.countByrgType(rgslipCode);
+	}
+
+	@Override
+	public int productSales(DateRangeVO dvo) throws Exception {
+		return adao.productSales(dvo);
+	}
+
+	@Override
+	public int serviceSales(DateRangeVO dvo) throws Exception {
+		return adao.serviceSales(dvo);
+	}
+
+	@Override
+	public int otherSales(DateRangeVO dvo) throws Exception {
+		return adao.otherSales(dvo);
+	}
+
+	@Override
+	public int interestSales(DateRangeVO dvo) throws Exception {
+		return adao.interestSales(dvo);
+	}
+
+	@Override
+	public int supplyCost(DateRangeVO dvo) throws Exception {
+		return adao.supplyCost(dvo);
+	}
+
+	@Override
+	public int shippingCost(DateRangeVO dvo) throws Exception {
+		return adao.shippingCost(dvo);
+	}
+
+	@Override
+	public int salaryCost(DateRangeVO dvo) throws Exception {
+		return adao.salaryCost(dvo);
+	}
+
+	@Override
+	public int wageCost(DateRangeVO dvo) throws Exception {
+		return adao.wageCost(dvo);
+	}
+
+	@Override
+	public int mechanicalCost(DateRangeVO dvo) throws Exception {
+		return adao.mechanicalCost(dvo);
+	}
+
+	@Override
+	public int inventoryCost(DateRangeVO dvo) throws Exception {
+		return adao.inventoryCost(dvo);
+	}
+
+	@Override
+	public int grossProfit(DateRangeVO dvo) throws Exception {
+		return adao.grossProfit(dvo);
+	}
+
+	@Override
+	public int marketingCost(DateRangeVO dvo) throws Exception {
+		return adao.marketingCost(dvo);
+	}
+
+	@Override
+	public int printCost(DateRangeVO dvo) throws Exception {
+		return adao.printCost(dvo);
+	}
+
+	@Override
+	public int sellingCost(DateRangeVO dvo) throws Exception {
+		return adao.sellingCost(dvo);
+	}
+
+	@Override
+	public int maintainCost(DateRangeVO dvo) throws Exception {
+		return adao.maintainCost(dvo);
+	}
+
+	@Override
+	public int otherCost(DateRangeVO dvo) throws Exception {
+		return adao.otherCost(dvo);
+	}
+
+	@Override
+	public int depreciationCost(DateRangeVO dvo) throws Exception {
+		return adao.depreciationCost(dvo);
+	}
+
+	@Override
+	public int operatingIncome(DateRangeVO dvo) throws Exception {
+		return adao.operatingIncome(dvo);
+	}
+
+	@Override
+	public int stermDebt(DateRangeVO dvo) throws Exception {
+		return adao.stermDebt(dvo);
+	}
+
+	@Override
+	public int ltermDebt(DateRangeVO dvo) throws Exception {
+		return adao.ltermDebt(dvo);
+	}
+
+	@Override
+	public int payableCost(DateRangeVO dvo) throws Exception {
+		return adao.payableCost(dvo);
+	}
+
+	@Override
+	public int payableWage(DateRangeVO dvo) throws Exception {
+		return adao.payableWage(dvo);
+	}
+
+	@Override
+	public int sumupVAT(DateRangeVO dvo) throws Exception {
+		return adao.sumupVAT(dvo);
+	}
+
+	@Override
+	public int netIncome(DateRangeVO dvo) throws Exception {
+		return adao.netIncome(dvo);
 	}
 
 }

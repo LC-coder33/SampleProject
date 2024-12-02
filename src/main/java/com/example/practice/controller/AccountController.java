@@ -1,9 +1,7 @@
 package com.example.practice.controller;
 
 import com.example.practice.service.IF_AccountService;
-import com.example.practice.vo.Pagevo;
-import com.example.practice.vo.SlipVO;
-import com.example.practice.vo.SliprgVO;
+import com.example.practice.vo.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,9 +38,9 @@ public class AccountController {
         List<SlipVO> slipList = accountservice.selectAll(pagevo);  // 전표 목록 가져오기
         ModelAndView mv = new ModelAndView("sliplist");  // sliplist.html 파일을 반환
         model.addAttribute("slips", slipList);  // 전표 목록을 "slips"라는 이름으로 모델에 추가
-        System.out.println(model.addAttribute("slips", slipList));
-        System.out.println("slipList size: " + slipList.size());
-        System.out.println("slipList content: " + slipList);
+//        System.out.println(model.addAttribute("slips", slipList));
+//        System.out.println("slipList size: " + slipList.size());
+//        System.out.println("slipList content: " + slipList);
         return mv;
     }
     @GetMapping("/sliprgList")
@@ -184,4 +184,73 @@ public class AccountController {
         model.addAttribute("rgCode", rgslipCode);  // 필터 조건 유지
         return mv;
     }
+    @GetMapping("/getincomevalues")
+    public ModelAndView getIncomeStatement(@RequestParam("startDate") String startDate,
+                                     @RequestParam("endDate") String endDate, Model model) throws Exception {
+        DateRangeVO dvo = new DateRangeVO();
+        // String을 LocalDate로 파싱
+        LocalDate startLocalDate = LocalDate.parse(startDate);
+        LocalDate endLocalDate = LocalDate.parse(endDate);
+
+        // LocalDate를 java.sql.Date로 변환
+        dvo.setStartDate(Date.valueOf(startLocalDate));
+        dvo.setEndDate(Date.valueOf(endLocalDate));
+
+        ModelAndView mv = new ModelAndView("incomeStatement");
+
+        model.addAttribute("productSales", accountservice.productSales(dvo));
+        model.addAttribute("serviceSales", accountservice.serviceSales(dvo));
+        model.addAttribute("otherSales", accountservice.otherSales(dvo));
+        model.addAttribute("interestSales", accountservice.interestSales(dvo));
+        model.addAttribute("supplyCost", accountservice.supplyCost(dvo));
+        model.addAttribute("shippingCost", accountservice.shippingCost(dvo));
+        model.addAttribute("salaryCost", accountservice.salaryCost(dvo));
+        model.addAttribute("wageCost", accountservice.wageCost(dvo));
+        model.addAttribute("mechanicalCost", accountservice.mechanicalCost(dvo));
+        model.addAttribute("inventoryCost", accountservice.inventoryCost(dvo));
+        model.addAttribute("grossProfit", accountservice.grossProfit(dvo));
+        model.addAttribute("marketingCost", accountservice.marketingCost(dvo));
+        model.addAttribute("printCost", accountservice.printCost(dvo));
+        model.addAttribute("sellingCost", accountservice.sellingCost(dvo));
+        model.addAttribute("maintainCost", accountservice.maintainCost(dvo));
+        model.addAttribute("otherCost", accountservice.otherCost(dvo));
+        model.addAttribute("depreciationCost", accountservice.depreciationCost(dvo));
+        model.addAttribute("operatingIncome", accountservice.operatingIncome(dvo));
+        model.addAttribute("stermDebt", accountservice.stermDebt(dvo));
+        model.addAttribute("ltermDebt", accountservice.ltermDebt(dvo));
+        model.addAttribute("payableCost", accountservice.payableCost(dvo));
+        model.addAttribute("payableWage", accountservice.payableWage(dvo));
+        model.addAttribute("sumupVAT", accountservice.sumupVAT(dvo));
+        model.addAttribute("netIncome", accountservice.netIncome(dvo));
+
+//        accountservice.productSales(dvo);
+//        accountservice.serviceSales(dvo);
+//        accountservice.otherSales(dvo);
+//        accountservice.interestSales(dvo);
+//        accountservice.supplyCost(dvo);
+//        accountservice.shippingCost(dvo);
+//        accountservice.salaryCost(dvo);
+//        accountservice.wageCost(dvo);
+//        accountservice.mechanicalCost(dvo);
+//        accountservice.inventoryCost(dvo);
+//        accountservice.grossProfit(dvo);
+//        accountservice.marketingCost(dvo);
+//        accountservice.printCost(dvo);
+//        accountservice.sellingCost(dvo);
+//        accountservice.maintainCost(dvo);
+//        accountservice.otherCost(dvo);
+//        accountservice.depreciationCost(dvo);
+//        accountservice.operatingIncome(dvo);
+//        accountservice.stermDebt(dvo);
+//        accountservice.ltermDebt(dvo);
+//        accountservice.payableCost(dvo);
+//        accountservice.payableWage(dvo);
+//        accountservice.sumupVAT(dvo);
+//        accountservice.netIncome(dvo);
+
+        return mv;
+    }
+
+
+
 }

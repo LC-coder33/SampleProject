@@ -4,10 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.Date;
+
+
 @Getter
 @Setter
 @ToString
-public class RevenueVO {
-    String revenueName = null;
-    String revenueType = null;
+public class DateRangeVO {
+    private Date startDate;
+    private Date endDate;
 }

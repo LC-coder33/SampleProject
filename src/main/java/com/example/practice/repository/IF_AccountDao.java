@@ -1,7 +1,7 @@
 package com.example.practice.repository;
 
+import com.example.practice.vo.DateRangeVO;
 import com.example.practice.vo.Pagevo;
-import com.example.practice.vo.RevenueVO;
 import com.example.practice.vo.SlipVO;
 import com.example.practice.vo.SliprgVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -15,7 +15,6 @@ import java.util.Map;
 @Repository
 public interface IF_AccountDao {
 
-	public void insertOne(RevenueVO rvo)throws Exception;
 //	public RevenueVO selectOne(String revenueCode) throws Exception;
 	public List<SlipVO> selectAll(Pagevo pagevo) throws Exception;
 	public int totalCountPV() throws Exception;
@@ -57,5 +56,53 @@ public interface IF_AccountDao {
 	List<SliprgVO> selectByrgType(Map<String, Object> params);
 
 	int countByrgType(String rgslipCode);
+
+	int productSales(DateRangeVO dvo) throws Exception;
+
+	int serviceSales(DateRangeVO dvo) throws Exception;
+
+	int otherSales(DateRangeVO dvo) throws Exception;
+
+	int interestSales(DateRangeVO dvo) throws Exception;
+
+	int supplyCost(DateRangeVO dvo) throws Exception;
+
+	int shippingCost(DateRangeVO dvo) throws Exception;
+
+	int salaryCost(DateRangeVO dvo) throws Exception;
+
+	int wageCost(DateRangeVO dvo) throws Exception;
+
+	int mechanicalCost(DateRangeVO dvo) throws Exception;
+
+	int inventoryCost(DateRangeVO dvo) throws Exception;
+
+	int grossProfit(DateRangeVO dvo) throws Exception;
+
+	int marketingCost(DateRangeVO dvo) throws Exception;
+
+	int printCost(DateRangeVO dvo) throws Exception;
+
+	int sellingCost(DateRangeVO dvo) throws Exception;
+
+	int maintainCost(DateRangeVO dvo) throws Exception;
+
+	int otherCost(DateRangeVO dvo) throws Exception;
+
+	int depreciationCost(DateRangeVO dvo) throws Exception;
+
+	int operatingIncome(DateRangeVO dvo) throws Exception;
+
+	int stermDebt(DateRangeVO dvo) throws Exception;
+
+	int ltermDebt(DateRangeVO dvo) throws Exception;
+
+	int payableCost(DateRangeVO dvo) throws Exception;
+
+	int payableWage(DateRangeVO dvo) throws Exception;
+
+	int sumupVAT(DateRangeVO dvo) throws Exception;
+
+	int netIncome(DateRangeVO dvo) throws Exception;
 
 }
