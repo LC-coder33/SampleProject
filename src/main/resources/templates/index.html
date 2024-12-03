@@ -169,7 +169,7 @@
   <div class="modal-content">
     <span class="close-button" onclick="closeModal()">&times;</span>
     <h2>전표 등록</h2>
-    <form id="slipForm" action="pSlip" method = "POST">
+    <form id="slipForm" action="pSlip" method = "POST" onsubmit="submitForm(event)">
       <div class="form-row">
         <div class="form-group">
           <label for="slipType">전표 타입</label>
@@ -309,7 +309,7 @@
   function forceCalculateVat() {
     const amount = parseFloat(document.getElementById("amount").value) || 0;
     const vatAmount = Math.round(amount * 0.1); // 10% 부가세 계산
-    document.getElementById("vat").value = vatAmount; // 부가세 입력란에 반영
+    document.getElementById("vat").value = vatAmount;
   }
 
   // // 폼 제출 처리(비동기 처리 시 필요할 수 있음)
@@ -334,6 +334,32 @@
   //   this.reset();
   //   closeModal();
   // }
+  function submitForm(event) {
+    event.preventDefault();
+
+    var formData = new FormData(document.getElementById('slipForm'));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/pSlip", true);
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+
+          alert("전표가 등록되었습니다!");
+
+          document.getElementById('slipForm').reset();
+          closeModal();
+        } else {
+          // 오류 발생 시 처리
+          alert("전표 등록에 실패했습니다.");
+        }
+      }
+    };
+
+    xhr.send(formData);
+  }
+
 </script>
 </body>
 </html>

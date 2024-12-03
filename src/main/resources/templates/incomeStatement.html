@@ -72,6 +72,7 @@
     <input type="date" id="endDate" name="endDate" th:value="${endDate}">
     <input type="submit" value="조회">
   </form>
+
   <!-- 매출 (Revenue) -->
   <div class="section-title">1. 매출 (Revenue)</div>
   <table>
@@ -81,19 +82,20 @@
     </tr>
     <tr>
       <td>제품 매출</td>
-      <td class="highlight" th:text="'₩ ' + ${productSales}">₩ 0</td>
+      <td class="highlight" id="productSales" th:text="'₩ ' + (${productSales} != null ? ${productSales} : 0)">₩ 0</td>
+
     </tr>
     <tr>
       <td>서비스 매출</td>
-      <td class="highlight" th:text="'₩ ' + ${serviceSales}">₩ 0</td>
+      <td class="highlight" id="serviceSales" th:text="'₩ ' + (${serviceSales} != null ? ${serviceSales} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>기타 수익</td>
-      <td class="highlight" th:text="'₩ ' + ${otherSales}">₩ 0</td>
+      <td class="highlight" id="otherSales" th:text="'₩ ' + (${otherSales} != null ? ${otherSales} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>이자 수익</td>
-      <td class="highlight" th:text="'₩ ' + ${interestSales}">₩ 0</td>
+      <td class="highlight" id="interestSales" th:text="'₩ ' + (${interestSales} != null ? ${interestSales} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -106,27 +108,27 @@
     </tr>
     <tr>
       <td>소모품비</td>
-      <td class="highlight" th:text="'₩ ' + ${supplyCost}">₩ 0</td>
+      <td class="highlight" id="supplyCost" th:text="'₩ ' + (${supplyCost} != null ? ${supplyCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>운송비</td>
-      <td class="highlight" th:text="'₩ ' + ${shippingCost}">₩ 0</td>
+      <td class="highlight" id="shippingCost" th:text="'₩ ' + (${shippingCost} != null ? ${shippingCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>급여비 (제조직 근로자 급여)</td>
-      <td class="highlight" th:text="'₩ ' + ${salaryCost}">₩ 0</td>
+      <td class="highlight" id="salaryCost" th:text="'₩ ' + (${salaryCost} != null ? ${salaryCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>임금비 (제조직 근로자 임금)</td>
-      <td class="highlight" th:text="'₩ ' + ${wageCost}">₩ 0</td>
+      <td class="highlight" id="wageCost" th:text="'₩ ' + (${wageCost} != null ? ${wageCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>기계장비 (감가상각비)</td>
-      <td class="highlight" th:text="'₩ ' + ${mechanicalCost}">₩ 0</td>
+      <td class="highlight" id="mechanicalCost" th:text="'₩ ' + (${mechanicalCost} != null ? ${mechanicalCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>재고자산 (판매된 재고의 원가)</td>
-      <td class="highlight" th:text="'₩ ' + ${inventoryCost}">₩ 0</td>
+      <td class="highlight" id="inventoryCost" th:text="'₩ ' + (${inventoryCost} != null ? ${inventoryCost} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -140,7 +142,7 @@
     </tr>
     <tr>
       <td>매출 - 매출원가</td>
-      <td class="highlight" th:text="'₩ ' + ${grossProfit}">₩ 0</td>
+      <td class="highlight" id="grossProfit" th:text="'₩ ' + (${grossProfit} != null ? ${grossProfit} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -153,27 +155,27 @@
     </tr>
     <tr>
       <td>광고비</td>
-      <td class="highlight" th:text="'₩ ' + ${marketingCost}">₩ 0</td>
+      <td class="highlight" id="marketingCost" th:text="'₩ ' + (${marketingCost} != null ? ${marketingCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>인쇄비</td>
-      <td class="highlight" th:text="'₩ ' + ${printCost}">₩ 0</td>
+      <td class="highlight" id="printCost" th:text="'₩ ' + (${printCost} != null ? ${printCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>판매비</td>
-      <td class="highlight" th:text="'₩ ' + ${sellingCost}">₩ 0</td>
+      <td class="highlight" id="sellingCost" th:text="'₩ ' + (${sellingCost} != null ? ${sellingCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>관리비</td>
-      <td class="highlight" th:text="'₩ ' + ${maintainCost}">₩ 0</td>
+      <td class="highlight" id="maintainCost" th:text="'₩ ' + (${maintainCost} != null ? ${maintainCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>기타 관리비</td>
-      <td class="highlight" th:text="'₩ ' + ${otherCost}">₩ 0</td>
+      <td class="highlight" id="otherCost" th:text="'₩ ' + (${otherCost} != null ? ${otherCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>감가상각비 (관리자산 관련)</td>
-      <td class="highlight" th:text="'₩ ' + ${depreciationCost}">₩ 0</td>
+      <td class="highlight" id="depreciationCost" th:text="'₩ ' + (${depreciationCost} != null ? ${depreciationCost} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -186,7 +188,7 @@
     </tr>
     <tr>
       <td>매출 총이익 - 판매비와 관리비</td>
-      <td class="highlight" th:text="'₩ ' + ${operatingIncome}">₩ 0</td>
+      <td class="highlight" id="operatingIncome" th:text="'₩ ' + (${operatingIncome} != null ? ${operatingIncome} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -199,19 +201,19 @@
     </tr>
     <tr>
       <td>단기부채 이자</td>
-      <td class="highlight" th:text="'₩ ' + ${stermDebt}">₩ 0</td>
+      <td class="highlight" id="stermDebt" th:text="'₩ ' + (${stermDebt} != null ? ${stermDebt} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>장기부채 이자</td>
-      <td class="highlight" th:text="'₩ ' + ${ltermDebt}">₩ 0</td>
+      <td class="highlight" id="ltermDebt" th:text="'₩ ' + (${ltermDebt} != null ? ${ltermDebt} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>미지급 비용</td>
-      <td class="highlight" th:text="'₩ ' + ${payableCost}">₩ 0</td>
+      <td class="highlight" id="payableCost" th:text="'₩ ' + (${payableCost} != null ? ${payableCost} : 0)">₩ 0</td>
     </tr>
     <tr>
       <td>미지급 급여</td>
-      <td class="highlight" th:text="'₩ ' + ${payableWage}">₩ 0</td>
+      <td class="highlight" id="payableWage" th:text="'₩ ' + (${payableWage} != null ? ${payableWage} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -224,7 +226,7 @@
     </tr>
     <tr>
       <td>부가세</td>
-      <td class="highlight" th:text="'₩ ' + ${sumupVAT}">₩ 0</td>
+      <td class="highlight" id="sumupVAT" th:text="'₩ ' + (${sumupVAT} != null ? ${sumupVAT} : 0)">₩ 0</td>
     </tr>
   </table>
 
@@ -237,10 +239,287 @@
     </tr>
     <tr class="total-row">
       <td>영업이익 - 기타 비용 - 부가세</td>
-      <td class="highlight" th:text="'₩ ' + ${netIncome}">₩ 0</td>
+      <td class="highlight" id="netIncome" th:text="'₩ ' + (${netIncome} != null ? ${netIncome} : 0)">₩ 0</td>
     </tr>
   </table>
 </div>
 
 </body>
 </html>
+<script>
+  document.getElementById('dateSubmit').onsubmit = function(e) {
+    e.preventDefault();
+    fetchIncomeStatement();
+  };
+  function fetchIncomeStatement() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+
+    fetch(`/getincomevalues?startDate=${startDate}&endDate=${endDate}`)
+            .then(response => response.json())
+            .then(data => {
+              updateValue('productSales', data.productSales);
+              updateValue('serviceSales', data.serviceSales);
+              updateValue('otherSales', data.otherSales);
+              updateValue('interestSales', data.interestSales);
+              updateValue('supplyCost', data.supplyCost);
+              updateValue('shippingCost', data.shippingCost);
+              updateValue('salaryCost', data.salaryCost);
+              updateValue('wageCost', data.wageCost);
+              updateValue('mechanicalCost', data.mechanicalCost);
+              updateValue('inventoryCost', data.inventoryCost);
+              updateValue('grossProfit', data.grossProfit);
+              updateValue('marketingCost', data.marketingCost);
+              updateValue('printCost', data.printCost);
+              updateValue('sellingCost', data.sellingCost);
+              updateValue('maintainCost', data.maintainCost);
+              updateValue('otherCost', data.otherCost);
+              updateValue('depreciationCost', data.depreciationCost);
+              updateValue('operatingIncome', data.operatingIncome);
+              updateValue('stermDebt', data.stermDebt);
+              updateValue('ltermDebt', data.ltermDebt);
+              updateValue('payableCost', data.payableCost);
+              updateValue('payableWage', data.payableWage);
+              updateValue('sumupVAT', data.sumupVAT);
+              updateValue('netIncome', data.netIncome);
+            })
+            .catch(error => {
+              console.error('Error fetching income statement:', error);
+              alert('데이터 조회 중 오류가 발생했습니다.');
+            });
+  }
+
+  function updateValue(id, value) {
+    const safeValue = value ?? 0;
+    const elements = document.querySelectorAll('td.highlight');
+    elements.forEach(element => {
+      const label = element.previousElementSibling.textContent.trim();
+
+      switch(id) {
+        case 'productSales':
+          if (label === '제품 매출') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'serviceSales':
+          if (label === '서비스 매출') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'otherSales':
+          if (label === '기타 수익') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'interestSales':
+          if (label === '이자 수익') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'supplyCost':
+          if (label === '소모품비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'shippingCost':
+          if (label === '운송비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'salaryCost':
+          if (label === '급여비 (제조직 근로자 급여)') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'wageCost':
+          if (label === '임금비 (제조직 근로자 임금)') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'mechanicalCost':
+          if (label === '기계장비 (감가상각비)') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'inventoryCost':
+          if (label === '재고자산 (판매된 재고의 원가)') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'grossProfit':
+          if (label === '매출 - 매출원가') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'marketingCost':
+          if (label === '광고비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'printCost':
+          if (label === '인쇄비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'sellingCost':
+          if (label === '판매비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'maintainCost':
+          if (label === '관리비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'otherCost':
+          if (label === '기타 관리비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'depreciationCost':
+          if (label === '감가상각비 (관리자산 관련)') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'operatingIncome':
+          if (label === '매출 총이익 - 판매비와 관리비') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'stermDebt':
+          if (label === '단기부채 이자') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'ltermDebt':
+          if (label === '장기부채 이자') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'payableCost':
+          if (label === '미지급 비용') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'payableWage':
+          if (label === '미지급 급여') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'sumupVAT':
+          if (label === '부가세') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+        case 'netIncome':
+          if (label === '영업이익 - 기타 비용 - 부가세') {
+            element.textContent = `₩ ${value.toLocaleString()}`;
+          }
+          break;
+      }
+    });
+  }
+
+  // document.getElementById('dateSubmit').onsubmit = function(e) {
+  //     e.preventDefault();
+  //     fetchAndUpdateIncomeStatement();
+  //   };
+  //
+  // function fetchAndUpdateIncomeStatement() {
+  //   const startDate = document.getElementById('startDate').value;
+  //   const endDate = document.getElementById('endDate').value;
+  //
+  //   fetch(`/getincomevalues?startDate=${startDate}&endDate=${endDate}`)
+  //           .then(response => response.json())
+  //           .then(data => {
+  //             updateValue('productSales', data.SCAL);
+  //             updateValue('serviceSales', data.SCAL);
+  //             updateValue('otherSales', data.SCAL);
+  //             updateValue('interestSales', data.SCAL);
+  //             updateValue('supplyCost', data.SCAL);
+  //             updateValue('shippingCost', data.SCAL);
+  //             updateValue('salaryCost', data.SCAL);
+  //             updateValue('wageCost', data.SCAL);
+  //             updateValue('mechanicalCost', data.SCAL);
+  //             updateValue('inventoryCost', data.SCAL);
+  //             updateValue('grossProfit', data.grossProfit);
+  //             updateValue('marketingCost', data.SCAL);
+  //             updateValue('printCost', data.SCAL);
+  //             updateValue('sellingCost', data.SCAL);
+  //             updateValue('maintainCost', data.SCAL);
+  //             updateValue('otherCost', data.SCAL);
+  //             updateValue('depreciationCost', data.SCAL);
+  //             updateValue('operatingIncome', data.operatingIncome);
+  //             updateValue('stermDebt', data.SCAL);
+  //             updateValue('ltermDebt', data.SCAL);
+  //             updateValue('payableCost', data.SCAL);
+  //             updateValue('payableWage', data.SCAL);
+  //             updateValue('sumupVAT', data.sumupVAT);
+  //             updateValue('netIncome', data.netIncome);
+  //             Object.keys(data).forEach(key => {
+  //               const element = document.getElementById(key);
+  //               if (element) {
+  //                 element.textContent = `₩ ${data[key].toLocaleString()}`;
+  //               }
+  //             });
+  //           })
+  //           .catch(error => {
+  //             console.error('Error fetching income statement:', error);
+  //             alert('데이터 조회 중 오류가 발생했습니다.');
+  //           });
+
+    // const slipTypes = {
+    //   'productSales': '제품 매출',
+    //   'serviceSales': '서비스 매출',
+    //   'otherSales': '기타 수익',
+    //   'interestSales': '이자 수익',
+    //   'supplyCost' : '소모품비',
+    //   'shippingCost' : '운송비',
+    //   'salaryCost' : '급여비 (제조직 근로자 급여)',
+    //   'wageCost' : '임금비 (제조직 근로자 임금)',
+    //   'mechanicalCost' : '기계장비 (감가상각비)',
+    //   'inventoryCost' : '재고자산 (판매된 재고의 원가)',
+    //   'marketingCost' : '광고비',
+    //   'printCost' : '인쇄비',
+    //   'sellingCost' : '판매비',
+    //   'maintainCost' : '관리비',
+    //   'otherCost' : '기타 관리비',
+    //   'depreciationCost' : '감가상각비 (관리자산 관련)',
+    //   'stermDebt' : '단기부채 이자',
+    //   'ltermDebt' : '장기부채 이자',
+    //   'payableCost' : '미지급 비용',
+    //   'payableWage' : '미지급 급여'
+    // };
+
+    //   const promises = Object.entries(slipTypes).map(([key, slipName]) => {
+    //     return fetch(`/getincomevalues?startDate=${startDate}&endDate=${endDate}&slipName=${encodeURIComponent(slipName)}`)
+    //             .then(response => response.json())
+    //             .then(data => ({[key]: data}));
+    //   });
+    //
+    //   // 모든 요청이 완료되면 데이터 업데이트
+    //   Promise.all(promises)
+    //           .then(results => {
+    //             const data = Object.assign({}, ...results);
+    //             updateAllValues(data);
+    //           })
+    //           .catch(error => {
+    //             console.error('Error fetching income statement:', error);
+    //             alert('데이터 조회 중 오류가 발생했습니다.');
+    //           });
+    // }
+
+  //   function updateAllValues(data) {
+  //     document.querySelectorAll('td.highlight').forEach(element => {
+  //       const label = element.previousElementSibling.textContent.trim();
+  //       const value = data[Object.keys(data).find(key =>
+  //               element.id === key
+  //       )];
+  //
+  //       if (value !== undefined) {
+  //         element.textContent = `₩ ${value.toLocaleString()}`;
+  //       }
+  //     });
+  //   }
+  // }
+</script>

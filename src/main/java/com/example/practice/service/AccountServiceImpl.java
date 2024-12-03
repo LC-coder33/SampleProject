@@ -7,6 +7,7 @@ import com.example.practice.vo.SlipVO;
 import com.example.practice.vo.SliprgVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @Service    // 해당 클래스를 객체로 만들어라..
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AccountServiceImpl implements IF_AccountService{
 
 	private final IF_AccountDao adao;
@@ -178,6 +180,10 @@ public class AccountServiceImpl implements IF_AccountService{
 		}
 		return adao.countByrgType(rgslipCode);
 	}
+//	@Override
+//	public int SCAL(DateRangeVO dvo) throws Exception {
+//		return adao.SCAL(dvo);
+//	}
 
 	@Override
 	public int productSales(DateRangeVO dvo) throws Exception {
@@ -230,11 +236,6 @@ public class AccountServiceImpl implements IF_AccountService{
 	}
 
 	@Override
-	public int grossProfit(DateRangeVO dvo) throws Exception {
-		return adao.grossProfit(dvo);
-	}
-
-	@Override
 	public int marketingCost(DateRangeVO dvo) throws Exception {
 		return adao.marketingCost(dvo);
 	}
@@ -265,11 +266,6 @@ public class AccountServiceImpl implements IF_AccountService{
 	}
 
 	@Override
-	public int operatingIncome(DateRangeVO dvo) throws Exception {
-		return adao.operatingIncome(dvo);
-	}
-
-	@Override
 	public int stermDebt(DateRangeVO dvo) throws Exception {
 		return adao.stermDebt(dvo);
 	}
@@ -292,6 +288,16 @@ public class AccountServiceImpl implements IF_AccountService{
 	@Override
 	public int sumupVAT(DateRangeVO dvo) throws Exception {
 		return adao.sumupVAT(dvo);
+	}
+
+	@Override
+	public int grossProfit(DateRangeVO dvo) throws Exception {
+		return adao.grossProfit(dvo);
+	}
+
+	@Override
+	public int operatingIncome(DateRangeVO dvo) throws Exception {
+		return adao.operatingIncome(dvo);
 	}
 
 	@Override

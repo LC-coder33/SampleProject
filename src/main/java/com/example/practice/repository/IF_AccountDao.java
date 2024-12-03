@@ -77,8 +77,6 @@ public interface IF_AccountDao {
 
 	int inventoryCost(DateRangeVO dvo) throws Exception;
 
-	int grossProfit(DateRangeVO dvo) throws Exception;
-
 	int marketingCost(DateRangeVO dvo) throws Exception;
 
 	int printCost(DateRangeVO dvo) throws Exception;
@@ -91,8 +89,6 @@ public interface IF_AccountDao {
 
 	int depreciationCost(DateRangeVO dvo) throws Exception;
 
-	int operatingIncome(DateRangeVO dvo) throws Exception;
-
 	int stermDebt(DateRangeVO dvo) throws Exception;
 
 	int ltermDebt(DateRangeVO dvo) throws Exception;
@@ -101,8 +97,13 @@ public interface IF_AccountDao {
 
 	int payableWage(DateRangeVO dvo) throws Exception;
 
+//	int SCAL(DateRangeVO dvo) throws Exception;
+
 	int sumupVAT(DateRangeVO dvo) throws Exception;
 
-	int netIncome(DateRangeVO dvo) throws Exception;
+	int grossProfit(DateRangeVO dvo) throws Exception;
 
+	int operatingIncome(DateRangeVO dvo) throws Exception;
+
+	int netIncome(DateRangeVO dvo) throws Exception;
 }

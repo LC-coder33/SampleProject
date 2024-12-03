@@ -4,6 +4,8 @@ import com.example.practice.service.IF_AccountService;
 import com.example.practice.vo.*;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/")
@@ -22,9 +26,8 @@ public class AccountController {
 
 
     @PostMapping("/pSlip")
-    public ResponseEntity<String> psInsert(@ModelAttribute SlipVO slipvo, HttpServletResponse response) throws Exception {
+    public ResponseEntity<String> psInsert(@ModelAttribute SlipVO slipvo) throws Exception {
         accountservice.psInsert(slipvo);
-        response.sendRedirect("/");
         return ResponseEntity.ok("successful");
     }
     @GetMapping("/slistView")
@@ -184,72 +187,89 @@ public class AccountController {
         model.addAttribute("rgCode", rgslipCode);  // 필터 조건 유지
         return mv;
     }
-    @GetMapping("/getincomevalues")
-    public ModelAndView getIncomeStatement(@RequestParam(value = "startDate", defaultValue = "0000-01-01") String startDate,
-                                     @RequestParam(value = "endDate", defaultValue = "9999-12-31") String endDate, Model model) throws Exception {
-        DateRangeVO dvo = new DateRangeVO();
-        // String을 LocalDate로 파싱
-        LocalDate startLocalDate = LocalDate.parse(startDate);
-        LocalDate endLocalDate = LocalDate.parse(endDate);
+//    @GetMapping("/getincomevalues")
+//    public ModelAndView getIncomeStatement(@RequestParam(value = "startDate", defaultValue = "0000-01-01") String startDate,
+//                                     @RequestParam(value = "endDate", defaultValue = "9999-12-31") String endDate, Model model) throws Exception {
+//        DateRangeVO dvo = new DateRangeVO();
+//        // String을 LocalDate로 parsing
+//        LocalDate startLocalDate = LocalDate.parse(startDate);
+//        LocalDate endLocalDate = LocalDate.parse(endDate);
+//
+//        // LocalDate를 java.sql.Date로 변환
+//        dvo.setStartDate(Date.valueOf(startLocalDate));
+//        dvo.setEndDate(Date.valueOf(endLocalDate));
+//
+//        ModelAndView mv = new ModelAndView("incomeStatement");
+//
+//        model.addAttribute("productSales", accountservice.productSales(dvo));
+//        model.addAttribute("serviceSales", accountservice.serviceSales(dvo));
+//        model.addAttribute("otherSales", accountservice.otherSales(dvo));
+//        model.addAttribute("interestSales", accountservice.interestSales(dvo));
+//        model.addAttribute("supplyCost", accountservice.supplyCost(dvo));
+//        model.addAttribute("shippingCost", accountservice.shippingCost(dvo));
+//        model.addAttribute("salaryCost", accountservice.salaryCost(dvo));
+//        model.addAttribute("wageCost", accountservice.wageCost(dvo));
+//        model.addAttribute("mechanicalCost", accountservice.mechanicalCost(dvo));
+//        model.addAttribute("inventoryCost", accountservice.inventoryCost(dvo));
+//        model.addAttribute("grossProfit", accountservice.grossProfit(dvo));
+//        model.addAttribute("marketingCost", accountservice.marketingCost(dvo));
+//        model.addAttribute("printCost", accountservice.printCost(dvo));
+//        model.addAttribute("sellingCost", accountservice.sellingCost(dvo));
+//        model.addAttribute("maintainCost", accountservice.maintainCost(dvo));
+//        model.addAttribute("otherCost", accountservice.otherCost(dvo));
+//        model.addAttribute("depreciationCost", accountservice.depreciationCost(dvo));
+//        model.addAttribute("operatingIncome", accountservice.operatingIncome(dvo));
+//        model.addAttribute("stermDebt", accountservice.stermDebt(dvo));
+//        model.addAttribute("ltermDebt", accountservice.ltermDebt(dvo));
+//        model.addAttribute("payableCost", accountservice.payableCost(dvo));
+//        model.addAttribute("payableWage", accountservice.payableWage(dvo));
+//        model.addAttribute("sumupVAT", accountservice.sumupVAT(dvo));
+//        model.addAttribute("netIncome", accountservice.netIncome(dvo));
+//
+//        return mv;
+//    }
+@GetMapping("/getincomevalues")
+public ResponseEntity<Map<String, Object>> getIncomeStatement(
+        @RequestParam(value = "startDate", defaultValue = "0000-01-01") String startDate,
+        @RequestParam(value = "endDate", defaultValue = "9999-12-31") String endDate) throws Exception {
 
-        // LocalDate를 java.sql.Date로 변환
-        dvo.setStartDate(Date.valueOf(startLocalDate));
-        dvo.setEndDate(Date.valueOf(endLocalDate));
+    LocalDate startLocalDate = LocalDate.parse(startDate);
+    LocalDate endLocalDate = LocalDate.parse(endDate);
 
-        ModelAndView mv = new ModelAndView("incomeStatement");
+    DateRangeVO dvo = new DateRangeVO();
+    dvo.setStartDate(Date.valueOf(startLocalDate));
+    dvo.setEndDate(Date.valueOf(endLocalDate));
 
-        model.addAttribute("productSales", accountservice.productSales(dvo));
-        model.addAttribute("serviceSales", accountservice.serviceSales(dvo));
-        model.addAttribute("otherSales", accountservice.otherSales(dvo));
-        model.addAttribute("interestSales", accountservice.interestSales(dvo));
-        model.addAttribute("supplyCost", accountservice.supplyCost(dvo));
-        model.addAttribute("shippingCost", accountservice.shippingCost(dvo));
-        model.addAttribute("salaryCost", accountservice.salaryCost(dvo));
-        model.addAttribute("wageCost", accountservice.wageCost(dvo));
-        model.addAttribute("mechanicalCost", accountservice.mechanicalCost(dvo));
-        model.addAttribute("inventoryCost", accountservice.inventoryCost(dvo));
-        model.addAttribute("grossProfit", accountservice.grossProfit(dvo));
-        model.addAttribute("marketingCost", accountservice.marketingCost(dvo));
-        model.addAttribute("printCost", accountservice.printCost(dvo));
-        model.addAttribute("sellingCost", accountservice.sellingCost(dvo));
-        model.addAttribute("maintainCost", accountservice.maintainCost(dvo));
-        model.addAttribute("otherCost", accountservice.otherCost(dvo));
-        model.addAttribute("depreciationCost", accountservice.depreciationCost(dvo));
-        model.addAttribute("operatingIncome", accountservice.operatingIncome(dvo));
-        model.addAttribute("stermDebt", accountservice.stermDebt(dvo));
-        model.addAttribute("ltermDebt", accountservice.ltermDebt(dvo));
-        model.addAttribute("payableCost", accountservice.payableCost(dvo));
-        model.addAttribute("payableWage", accountservice.payableWage(dvo));
-        model.addAttribute("sumupVAT", accountservice.sumupVAT(dvo));
-        model.addAttribute("netIncome", accountservice.netIncome(dvo));
+    // Call service methods to get income statement data
+    Map<String, Object> result = new HashMap<>();
+    result.put("productSales", accountservice.productSales(dvo));
+    result.put("serviceSales", accountservice.serviceSales(dvo));
+    result.put("otherSales", accountservice.otherSales(dvo));
+    result.put("interestSales", accountservice.interestSales(dvo));
+    result.put("supplyCost", accountservice.supplyCost(dvo));
+    result.put("shippingCost", accountservice.shippingCost(dvo));
+    result.put("salaryCost", accountservice.salaryCost(dvo));
+    result.put("wageCost", accountservice.wageCost(dvo));
+    result.put("mechanicalCost", accountservice.mechanicalCost(dvo));
+    result.put("inventoryCost", accountservice.inventoryCost(dvo));
+    result.put("grossProfit", accountservice.grossProfit(dvo));
+    result.put("marketingCost", accountservice.marketingCost(dvo));
+    result.put("printCost", accountservice.printCost(dvo));
+    result.put("sellingCost", accountservice.sellingCost(dvo));
+    result.put("maintainCost", accountservice.maintainCost(dvo));
+    result.put("otherCost", accountservice.otherCost(dvo));
+    result.put("depreciationCost", accountservice.depreciationCost(dvo));
+    result.put("operatingIncome", accountservice.operatingIncome(dvo));
+    result.put("stermDebt", accountservice.stermDebt(dvo));
+    result.put("ltermDebt", accountservice.ltermDebt(dvo));
+    result.put("payableCost", accountservice.payableCost(dvo));
+    result.put("payableWage", accountservice.payableWage(dvo));
+    result.put("sumupVAT", accountservice.sumupVAT(dvo));
+    result.put("netIncome", accountservice.netIncome(dvo));
 
-//        accountservice.productSales(dvo);
-//        accountservice.serviceSales(dvo);
-//        accountservice.otherSales(dvo);
-//        accountservice.interestSales(dvo);
-//        accountservice.supplyCost(dvo);
-//        accountservice.shippingCost(dvo);
-//        accountservice.salaryCost(dvo);
-//        accountservice.wageCost(dvo);
-//        accountservice.mechanicalCost(dvo);
-//        accountservice.inventoryCost(dvo);
-//        accountservice.grossProfit(dvo);
-//        accountservice.marketingCost(dvo);
-//        accountservice.printCost(dvo);
-//        accountservice.sellingCost(dvo);
-//        accountservice.maintainCost(dvo);
-//        accountservice.otherCost(dvo);
-//        accountservice.depreciationCost(dvo);
-//        accountservice.operatingIncome(dvo);
-//        accountservice.stermDebt(dvo);
-//        accountservice.ltermDebt(dvo);
-//        accountservice.payableCost(dvo);
-//        accountservice.payableWage(dvo);
-//        accountservice.sumupVAT(dvo);
-//        accountservice.netIncome(dvo);
-
-        return mv;
-    }
+    // Return the data as JSON response
+    return ResponseEntity.ok(result);
+}
 
 
 

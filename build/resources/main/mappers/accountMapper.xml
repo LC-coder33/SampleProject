@@ -174,13 +174,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-
-
-
-
-
-
-
 	<select id="productSales" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
 		SELECT NVL(SUM(RGPRICE), 0)
 		FROM ERPSLIPRG
@@ -251,14 +244,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND TO_DATE(#{endDate,jdbcType=DATE})
 		  AND RGSLIPNAME = '재고자산'
 	</select>
-	<select id="grossProfit" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
-	SELECT
-	NVL(SUM(CASE WHEN RGSLIPNAME IN ('제품 매출', '서비스 매출', '기타 수익', '이자 수익') THEN RGPRICE ELSE 0 END), 0) -
-	NVL(SUM(CASE WHEN RGSLIPNAME IN ('소모품비', '운송비', '급여비', '임금비', '기계장비', '재고자산') THEN RGPRICE ELSE 0 END), 0) AS 매출총이익
-	FROM ERPSLIPRG
-	WHERE RGDATE BETWEEN TO_DATE(#{startDate,jdbcType=DATE})
-	AND TO_DATE(#{endDate,jdbcType=DATE})
-	</select>
 	<select id="marketingCost" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
 		SELECT NVL(SUM(RGPRICE), 0)
 		FROM ERPSLIPRG
@@ -301,16 +286,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND TO_DATE(#{endDate,jdbcType=DATE})
 		  AND RGSLIPNAME = '감가상각비'
 	</select>
-	<select id="operatingIncome" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
-	SELECT
-	NVL(SUM(CASE WHEN RGSLIPNAME IN ('제품 매출', '서비스 매출', '기타 수익', '이자 수익') THEN RGPRICE ELSE 0 END), 0) -
-	NVL(SUM(CASE WHEN RGSLIPNAME IN ('소모품비', '운송비', '급여비', '임금비', '기계장비', '재고자산') THEN RGPRICE ELSE 0 END), 0) -
-	NVL(SUM(CASE WHEN RGSLIPNAME IN ('광고비', '인쇄비','판매비','관리비','기타 관리비','감가상각비') THEN RGPRICE ELSE 0 END), 0)
-	AS 영업이익
-	FROM ERPSLIPRG
-	WHERE RGDATE BETWEEN TO_DATE(#{startDate,jdbcType=DATE})
-	AND TO_DATE(#{endDate,jdbcType=DATE})
-	</select>
 	<select id="stermDebt" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
 		SELECT NVL(SUM(RGPRICE), 0)
 		FROM ERPSLIPRG
@@ -339,8 +314,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND TO_DATE(#{endDate,jdbcType=DATE})
 		  AND RGSLIPNAME = '미지급 급여'
 	</select>
+<!--	<select id="SCAL" parameterType="map" resultType="int">-->
+<!--		SELECT NVL(SUM(RGPRICE), 0)-->
+<!--		FROM ERPSLIPRG-->
+<!--		WHERE RGDATE BETWEEN TO_DATE(#{startDate, jdbcType=DATE})-->
+<!--			AND TO_DATE(#{endDate, jdbcType=DATE})-->
+<!--		  AND RGSLIPNAME = #{slipName}-->
+<!--	</select>-->
 	<select id="sumupVAT" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
-	SELECT NVL(SUM(RGFEE), 0)
+		SELECT NVL(SUM(RGFEE), 0)
+		FROM ERPSLIPRG
+		WHERE RGDATE BETWEEN TO_DATE(#{startDate,jdbcType=DATE})
+				  AND TO_DATE(#{endDate,jdbcType=DATE})
+	</select>
+	<select id="grossProfit" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
+	SELECT
+	NVL(SUM(CASE WHEN RGSLIPNAME IN ('제품 매출', '서비스 매출', '기타 수익', '이자 수익') THEN RGPRICE ELSE 0 END), 0) -
+	NVL(SUM(CASE WHEN RGSLIPNAME IN ('소모품비', '운송비', '급여비', '임금비', '기계장비', '재고자산') THEN RGPRICE ELSE 0 END), 0) AS 매출총이익
+	FROM ERPSLIPRG
+	WHERE RGDATE BETWEEN TO_DATE(#{startDate,jdbcType=DATE})
+	AND TO_DATE(#{endDate,jdbcType=DATE})
+	</select>
+	<select id="operatingIncome" parameterType="com.example.practice.vo.DateRangeVO" resultType="int">
+	SELECT
+	NVL(SUM(CASE WHEN RGSLIPNAME IN ('제품 매출', '서비스 매출', '기타 수익', '이자 수익') THEN RGPRICE ELSE 0 END), 0) -
+	NVL(SUM(CASE WHEN RGSLIPNAME IN ('소모품비', '운송비', '급여비', '임금비', '기계장비', '재고자산') THEN RGPRICE ELSE 0 END), 0) -
+	NVL(SUM(CASE WHEN RGSLIPNAME IN ('광고비', '인쇄비','판매비','관리비','기타 관리비','감가상각비') THEN RGPRICE ELSE 0 END), 0)
+	AS 영업이익
 	FROM ERPSLIPRG
 	WHERE RGDATE BETWEEN TO_DATE(#{startDate,jdbcType=DATE})
 	AND TO_DATE(#{endDate,jdbcType=DATE})
